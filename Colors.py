@@ -1,0 +1,11 @@
+# Define some colors that are used in some of the other scripts for buttons etc.
+LIGHT_BLUE = (145, 186, 214)
+NAVY_BLUE = (30, 63, 102)
+BLUE_GRAY = (50, 50, 100)
+CORAL_RED = (240, 128, 128)
+BLACK = (0, 0, 0)
+RED = (255, 0, 0)
+DARK_RED = (128, 0, 0)
+PINK = (214, 160, 160)
+GRAY = (50, 50, 50)
+LIGHT_GRAY = (170, 170, 170)
