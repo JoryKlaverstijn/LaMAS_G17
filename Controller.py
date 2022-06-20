@@ -1,13 +1,17 @@
+import matplotlib.pyplot as plt
+
 class Controller:
     """
     The main controller of the game. This class handles button/mouse events.
     It has a close coupling with the Game/model.
     """
-    def __init__(self, text_chat, game, reset_button, step_button, text_up, text_down):
+    def __init__(self, text_chat, game, reset_button, step_button, plot_model_button, model_buttons, text_up, text_down):
         self.text_chat = text_chat
         self.game = game
         self.reset_button = reset_button
         self.step_button = step_button
+        self.plot_model_button = plot_model_button
+        self.model_buttons = model_buttons
         self.text_up = text_up
         self.text_down = text_down
 
@@ -28,11 +32,19 @@ class Controller:
             if self.reset_button.mouse_on_button(mouse):
                 self.game.reset()
 
+            if self.plot_model_button.mouse_on_button(mouse):
+                self.game.km.plot_model()
+
             if self.text_up.mouse_on_button(mouse) and self.text_chat.can_go_up():
                 self.text_chat.cursor -= 1
 
             if self.text_down.mouse_on_button(mouse) and self.text_chat.can_go_down():
                 self.text_chat.cursor += 1
+
+            for but in self.model_buttons:
+                if but.mouse_on_button(mouse):
+                    self.game.km.plot_model(but.text)
+
 
         # Handle buttons (Space, up, down)
         if event.type == pygame.KEYDOWN:

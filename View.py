@@ -11,6 +11,7 @@ class View:
             Role.VILLAGER: pygame.image.load('Images/villager_card.jpg'),
             Role.SEER: pygame.image.load('Images/seer_card.jpg'),
             Role.LITTLE_GIRL: pygame.image.load('Images/littlegirl_card.jpg'),
+            Role.HUNTER: pygame.image.load('Images/hunter_card.jpg'),
             'dead_cross': pygame.image.load('Images/dead_cross.png').convert_alpha()
         }
 

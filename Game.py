@@ -3,9 +3,10 @@ from PlayerClasses.PlayerWolf import PlayerWolf
 from PlayerClasses.PlayerVillager import PlayerVillager
 from PlayerClasses.PlayerSeer import PlayerSeer
 from PlayerClasses.PlayerLittlegirl import PlayerLittlegirl
+from PlayerClasses.PlayerHunter import PlayerHunter
+from mlsolver.model import MillerHollowModel
 from enum import Enum
 from Message import MessageType, Message
-from itertools import combinations
 import random
 
 
@@ -16,7 +17,7 @@ class State(Enum):
     SEER_TURN = 4
     VOTING_DAY = 5
     VOTING_DAY_RESULTS = 6
-    WOLF_COMMUNICATE = 7
+    WOLF_SETUP = 7
     VOTING_NIGHT = 8
     VOTING_NIGHT_RESULTS = 9
 
@@ -30,6 +31,7 @@ class Game:
         Role.VILLAGER: PlayerVillager,
         Role.SEER: PlayerSeer,
         Role.LITTLE_GIRL: PlayerLittlegirl,
+        Role.HUNTER: PlayerHunter,
     }
 
     def __init__(self, roles, text_chat):
@@ -37,7 +39,9 @@ class Game:
         self.players_to_vote = self.seers = self.votes = self.players = None
         self.roles = roles
         self.initialize_players()
+        self.km = MillerHollowModel(self.players)
         self.state = State.START
+
 
     def initialize_players(self):
         """
@@ -84,20 +88,23 @@ class Game:
         """
         Inform all wolves who the other wolves are.
         """
-        wolves = [(idx, player) for idx, player in enumerate(self.players) if player.role == Role.WOLF]
-        for (_, wolf1), (idx, wolf2) in combinations(wolves, r=2):
-            message = Message([idx], MessageType.IDENTITY_REVEAL, wolf2.role)
-            wolf1.inform(message)
-        self.text_chat.add_message("The wolves now know who the other wolves are.", (255, 255, 0))
-        self.state = State.WOLF_COMMUNICATE
+        wolves = [idx for idx in range(len(self.players)) if self.players[idx].role == Role.WOLF]
+        for idx1 in wolves:
+            for idx2 in wolves:
+                if idx1 != idx2:
+                    self.km.update_knows_wolf(idx1, idx2)
 
-    def wolf_communicate(self):
+        self.text_chat.add_message("The wolves now know who the other wolves are.", (255, 255, 0))
+        self.state = State.SETUP_SEER_TURN
+
+    def wolf_setup(self):
         """
         Allow the wolves to communicate with each other before killing a villager.
         """
-        self.text_chat.add_message("The wolves have communicated who they want to kill...",
+        self.text_chat.add_message("The wolves are about to vote to kill someone...",
                                    (255, 255, 0))
         self.players_to_vote = [player for player in self.players if player.role == Role.WOLF and player.alive]
+        random.shuffle(self.players_to_vote)
         self.votes = [0 for _ in range(len(self.players))]
         self.state = State.VOTING_NIGHT
 
@@ -109,7 +116,7 @@ class Game:
             for player in self.players:
                 if player.alive:
                     player.voted = False
-            self.text_chat.add_message("All wolfs have voted...", (255, 255, 0))
+            self.text_chat.add_message("All wolves have voted...", (255, 255, 0))
             self.state = State.VOTING_NIGHT_RESULTS
             return
 
@@ -124,7 +131,7 @@ class Game:
                 player.inform(message)
         self.text_chat.add_message(
             f"{voting_player.name} has voted to kill {voted_player.name} ({sum(self.votes)}/{total_to_vote})",
-            (150, 64, 64)
+            (255, 128, 128)
         )
 
     def voting_night_results(self):
@@ -134,21 +141,23 @@ class Game:
         max_voted_players = [idx for idx, cnt in enumerate(self.votes) if cnt == max(self.votes)]
         player_to_die = self.players[random.choice(max_voted_players)]
         self.text_chat.add_message(
-            f"The wolfs have voted for {player_to_die.name} to die!", (196, 40, 40)
+            f"The wolves have voted for {player_to_die.name} to die!", (196, 40, 40)
         )
         player_to_die.alive = False
-        message = Message([player_to_die.id], MessageType.DEATH_REPORT)
         for player in self.players:
             if player.alive:
-                player.inform(message)
+                self.km.update_knows_good(player.id, player_to_die.id)
 
-        self.state = State.SETUP_SEER_TURN
+        self.votes = [0 for _ in range(len(self.players))]
+        self.players_to_vote = [player for player in self.players if player.alive]
+        random.shuffle(self.players_to_vote)
+        self.state = State.VOTING_DAY
 
     def setup_seer_turn(self):
         """
         Setups the list of seers that are allowed to reveal an identity.
         """
-        self.text_chat.add_message("It is now the turn of the seers to reveal someone's identity.", (255, 255, 0))
+        self.text_chat.add_message("It is now the turn of the seers to identify another player's role.", (255, 255, 0))
         self.seers = [player for player in self.players if player.role == Role.SEER and player.alive]
         self.state = State.SEER_TURN
 
@@ -157,19 +166,20 @@ class Game:
         Each seer is now allowed to reveal a chosen person's identity
         """
         if not self.seers:
-            self.text_chat.add_message("All living seers have revealed someone's identity.", (255, 255, 0))
-            self.text_chat.add_message("It is now time to vote!", (255, 255, 0))
-            self.votes = [0 for _ in range(len(self.players))]
-            self.players_to_vote = [player for player in self.players if player.alive]
-            self.state = State.VOTING_DAY
+            self.text_chat.add_message("All living seers have identified someone's role.", (255, 255, 0))
+            self.state = State.WOLF_SETUP
             return
 
         seer = self.seers.pop()
         chosen_player = self.players[seer.choose_player_to_reveal()]
-        message = Message([chosen_player.id], MessageType.IDENTITY_REVEAL, chosen_player.role)
-        seer.inform(message)
+        if chosen_player.role == Role.WOLF:
+            self.km.update_knows_wolf(seer.id, chosen_player.id)
+        elif chosen_player.role == Role.LITTLE_GIRL:
+            self.km.update_knows_little_girl(seer.id, chosen_player.id)
+        else:
+            self.km.update_knows_good(seer.id, chosen_player.id)
         self.text_chat.add_message(
-            f"{seer.name} has revealed the identity of {chosen_player.name}" +
+            f"{seer.name} has identified the role of {chosen_player.name}" +
             f" ({str(chosen_player.role)[5:]})", (196, 196, 196))
 
     def voting_day(self):
@@ -215,7 +225,7 @@ class Game:
                 player.inform(message)
 
         self.votes = [0 for _ in range(len(self.players))]
-        self.state = State.WOLF_COMMUNICATE
+        self.state = State.SETUP_SEER_TURN
 
     def step(self):
         """
@@ -228,7 +238,7 @@ class Game:
             State.SEER_TURN: self.seer_turn,
             State.VOTING_DAY: self.voting_day,
             State.VOTING_DAY_RESULTS: self.voting_day_results,
-            State.WOLF_COMMUNICATE: self.wolf_communicate,
+            State.WOLF_SETUP: self.wolf_setup,
             State.VOTING_NIGHT: self.voting_night,
             State.VOTING_NIGHT_RESULTS: self.voting_night_results
         }
@@ -236,11 +246,12 @@ class Game:
         # Run the appropriate method
         step_methods[self.state]()
 
+
     def reset(self):
         """
         Resets the state of the game.
         """
         self.text_chat.reset()
         self.initialize_players()
+        self.km.setup(self.players)
         self.state = State.START
-

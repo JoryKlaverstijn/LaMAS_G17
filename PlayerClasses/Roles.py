@@ -6,3 +6,4 @@ class Role(Enum):
     VILLAGER = 2
     SEER = 3
     LITTLE_GIRL = 4
+    HUNTER = 5
