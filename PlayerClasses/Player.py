@@ -10,15 +10,21 @@ class Player:
         self.roles = roles
         self.voted = False
         self.id = player_id
-        self.alive_player_ids = list(range(sum(roles.values())))
 
-    def get_vote(self):
-        targets = [idx for idx in self.alive_player_ids if idx != self.id]
+    def get_vote(self, km, alive_player_ids):
+        targets = [idx for idx in alive_player_ids if idx != self.id]
+        # Villagers try to vote for someone they know is a wolf
+        for idx in targets:
+            if km.knows_wolf(self.id, idx):
+                return idx
+
+        # Then villagers try to vote someone that they have not confirmed is not a wolf
+        for idx in targets:
+            if km.suspects(self.id, idx):
+                return idx
+
+        # If the villager has no useful knowledge, they vote randomly
         return random.choice(targets)
-
-    def inform(self, message):
-        if message.message_type == MessageType.DEATH_REPORT:
-            self.alive_player_ids.remove(message.players[0])
 
     def draw(self, pygame, screen, x, y, color, text_color, player_images):
         text_font = pygame.font.SysFont('Corbel', 35)

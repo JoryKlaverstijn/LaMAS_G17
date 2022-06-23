@@ -4,6 +4,7 @@ from PlayerClasses.Roles import Role
 from itertools import permutations
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.lines import Line2D
 
 
 class MillerHollowModel:
@@ -16,6 +17,7 @@ class MillerHollowModel:
         self.setup(players)
 
     def setup(self, players):
+        self.players = players
         self.n_players = len(players)
         self.worlds = []
         # We make the worlds with each permutation of wolves little_girls and other
@@ -55,7 +57,7 @@ class MillerHollowModel:
                 world_truths[f'IsWolf:{idx}'] = False
                 world_truths[f'IsGirl:{idx}'] = False
 
-            world_name = 'Wolf' + '_'.join(map(str, wolf_indices)) + ',Girl' + '_'.join(map(str, girl_indices))
+            world_name = 'Wolf:' + '_'.join(map(str, wolf_indices)) + ',Girl:' + '_'.join(map(str, girl_indices))
             self.worlds.append(World(world_name, world_truths))
 
         # Create the relationships for each agent
@@ -85,12 +87,14 @@ class MillerHollowModel:
 
         wolf_indices = [idx for idx, role in enumerate(simplified_roles) if role == Role.WOLF]
         girl_indices = [idx for idx, role in enumerate(simplified_roles) if role == Role.LITTLE_GIRL]
-        self.real_world = 'Wolf' + '_'.join(map(str, wolf_indices)) + ',Girl' + '_'.join(map(str, girl_indices))
+        self.real_world = 'Wolf:' + '_'.join(map(str, wolf_indices)) + ',Girl:' + '_'.join(map(str, girl_indices))
 
     def kripke_structure_solve_a(self, agent, formula):
         """
         This function is a small change to mlsolver taken from the code of The Ship at
         https://github.com/JohnRoyale/MAS2018/blob/master/mlsolver/kripke.py#L36
+        Checks which nodes need to be removed, then checks each relation if that node
+        is part of the relation. If it is, it removes it from the set of relations of the agent.
         """
 
         nodes_to_remove = self.kripke_structure.nodes_not_follow_formula(formula)
@@ -134,6 +138,7 @@ class MillerHollowModel:
         return result
 
     def plot_model(self, player=None):
+        colors = ['darkred', 'red', 'darkorange', 'yellowgreen', 'green', 'cyan', 'royalblue', 'purple']
         fig, ax = plt.subplots(1)
         fig.set_size_inches(10, 10)
         r = 20
@@ -141,22 +146,41 @@ class MillerHollowModel:
         world_positions = [(r * np.cos(theta), r * np.sin(theta)) for theta in world_angles]
         world_idx = {world.name: idx for idx, world in enumerate(self.worlds)}
 
+        custom_legend = []
         # Plot the relations
-        for agent, relations in self.kripke_structure.relations.items():
+        for color, (agent, relations) in zip(colors, self.kripke_structure.relations.items()):
+            # We only plot the selected player
             if player is not None and agent != player:
                 continue
+
+            # We don't plot dead players if we plot all the lines
+            if player is None and not self.players[int(agent)].alive:
+                continue
+
+            custom_legend.append((Line2D([0],[0], color=color, lw=2), self.players[int(agent)].name))
             for start, end in relations:
                 if start == end:
                     continue
 
                 x1, y1 = world_positions[world_idx[start]]
                 x2, y2 = world_positions[world_idx[end]]
-                plt.plot((x1, x2), (y1, y2), color='black')
+                plt.plot((x1, x2), (y1, y2), color=color, alpha=0.3)
 
         # Plot the worlds
-        plt.scatter(*zip(*world_positions))
-        plt.scatter(*world_positions[world_idx[self.real_world]], color='lime', s=100, zorder=10)
+        plt.scatter(*zip(*world_positions), zorder=10, color=(0, 0, 0))
+        plt.scatter(*world_positions[world_idx[self.real_world]], color=(0, 1, 0), s=100, zorder=10)
+        for world, (x, y) in zip(self.worlds, world_positions):
+            degree = world_angles[world_idx[world.name]] / np.pi * 180
+            if 90 <= degree <= 270:
+                degree += 180
+            plt.text(x*1.20, y*1.20, world.name, rotation=degree, ha='center', va='center', fontsize=9)
+        plt.xticks([])
+        plt.yticks([])
 
+        plt.xlim(-r * 1.4, r * 1.4)
+        plt.ylim(-r * 1.4, r * 1.4)
+        plt.title('Kripke Model')
+        plt.legend(*zip(*custom_legend))
         plt.show()
 
     def suspects(self, observer, observee):
@@ -179,6 +203,11 @@ class MillerHollowModel:
         sentence = Box_a(str(observer), Not(Atom(f'IsWolf:{observee}')))
         return sentence.semantic(self.kripke_structure, self.real_world)
 
+    def knows_knows_wolf(self, observer, observee):
+        # Observer (wolf) knows the observee knows the observer is a wolf
+        sentence = Box_a(str(observer), Box_a(str(observee), Atom(f'IsWolf:{observer}')))
+        return sentence.semantic(self.kripke_structure, self.real_world)
+
     def update_knows_wolf(self, observer, observee):
         # Updates the knowledge of the observer that observee is a wolf
         sentence = Atom(f'IsWolf:{observee}')
@@ -192,3 +221,12 @@ class MillerHollowModel:
         # Updates the knowledge of the observer that observee is a wolf
         sentence = Not(Atom(f'IsWolf:{observee}'))
         self.kripke_structure_solve_a(str(observer), sentence)
+
+    def update_sentence(self, observer, sentence):
+        self.kripke_structure_solve_a(str(observer), sentence)
+
+    def check_sentence(self, sentence):
+        return sentence.semantic(self.kripke_structure, self.real_world)
+
+    def check_sentence_world(self, sentence, world):
+        return sentence.semantic(self.kripke_structure, world)
