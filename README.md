@@ -1,3 +1,5 @@
+![example_game_image](https://user-images.githubusercontent.com/63673224/175591941-a46b9dd2-fe89-409b-bf39-4a0ff42779ea.png)
+
 # Setup
 1) Install all required libraries (`pip install numpy`, `pip install pygame`, `pip install matplotlib`)
 2) Take a look at the [Game rules](https://www.ultraboardgames.com/the-werewolves-of-millers-hollow/game-rules.php)
