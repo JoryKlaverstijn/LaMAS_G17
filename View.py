@@ -14,6 +14,22 @@ class View:
             Role.HUNTER: pygame.image.load('Images/hunter_card.jpg'),
             'dead_cross': pygame.image.load('Images/dead_cross.png').convert_alpha()
         }
+        self.bg_image = pygame.image.load('Images/background.png')
+
+    def draw_player(self, pygame, screen, location, color, text_color, player):
+        text_font = pygame.font.SysFont('Corbel', 35)
+        if player.voted:
+            pygame.draw.rect(screen, (255, 0, 255), [location[0] - 5, location[1] - 5, 210, 260])
+        else:
+            pygame.draw.rect(screen, (0, 0, 0), [location[0] - 5, location[1] - 5, 210, 260])
+        pygame.draw.rect(screen, color, [*location, 200, 250])
+        text = text_font.render(player.name, True, text_color)
+        text_width = text.get_rect().width
+        text_height = text.get_rect().height
+        screen.blit(text, (location[0] + 100 - text_width // 2, location[1] + 225 - text_height // 2))
+        screen.blit(self.player_images[player.role], location)
+        if not player.alive:
+            screen.blit(self.player_images['dead_cross'], location)
 
     def draw_game(self, pygame, screen, game, all_buttons, mouse):
         """
@@ -23,11 +39,11 @@ class View:
         player_locations = [(x, y) for y in (20, 300) for x in range(50, 750, 220)]
 
         # Drawing background
-        screen.fill((50, 50, 50))
+        screen.blit(self.bg_image, (0, 0))
 
         # Drawing players
         for player, location in zip(game.players, player_locations):
-            player.draw(pygame, screen, *location, CORAL_RED, BLACK, self.player_images)
+            self.draw_player(pygame, screen, location, CORAL_RED, BLACK, player)
 
         # Drawing in-game text chat
         game.text_chat.draw(pygame, screen)
@@ -37,7 +53,7 @@ class View:
             button.draw_button(pygame, screen, mouse)
 
         # If a vote is active: draw the voting counts per player and show who has voted
-        if game.state in (State.VOTING_DAY, State.VOTING_NIGHT):
+        if game.state in (State.VOTING_DAY, State.VOTING_NIGHT, State.VOTING_DAY_RESULTS, State.VOTING_NIGHT_RESULTS):
             for player, (x, y), votes in zip(game.players, player_locations, game.votes):
                 if player.alive:
                     pygame.draw.circle(screen, DARK_RED, (x + 200, y), 25)

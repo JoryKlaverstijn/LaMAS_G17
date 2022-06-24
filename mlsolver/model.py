@@ -20,7 +20,8 @@ class MillerHollowModel:
         self.players = players
         self.n_players = len(players)
         self.worlds = []
-        # We make the worlds with each permutation of wolves little_girls and other
+
+        # We make the worlds with each permutation of wolves little girls and other
         simplified_roles = []
         for player in players:
             if player.role == Role.WOLF:
@@ -60,25 +61,13 @@ class MillerHollowModel:
             world_name = 'Wolf:' + '_'.join(map(str, wolf_indices)) + ',Girl:' + '_'.join(map(str, girl_indices))
             self.worlds.append(World(world_name, world_truths))
 
-        # Create the relationships for each agent
+        # Create the relationships for each agent (start with fully connected)
         self.relations = {}
         for agent_idx, player in enumerate(players):
             agent_rels = set()
-            for w_roles1, world1 in zip(self.worlds_roles, self.worlds):
-                for w_roles2, world2 in zip(self.worlds_roles, self.worlds):
-                    # The wolves start by only knowing their own role
-                    if player.role == Role.WOLF:
-                        if agent_idx in w_roles1[Role.WOLF] and agent_idx in w_roles2[Role.WOLF]:
-                            agent_rels.add((world1.name, world2.name))
-                    # Little girls only know their own role (other worlds are not acessible)
-                    elif player.role == Role.LITTLE_GIRL:
-                        if agent_idx in w_roles1[Role.LITTLE_GIRL] and agent_idx in w_roles2[Role.LITTLE_GIRL]:
-                            agent_rels.add((world1.name, world2.name))
-                    else:
-                    # Villagers and other "good" roles also only know they are good
-                        if agent_idx not in w_roles1[Role.LITTLE_GIRL] + w_roles1[Role.WOLF] \
-                                + w_roles2[Role.LITTLE_GIRL] + w_roles2[Role.WOLF]:
-                            agent_rels.add((world1.name, world2.name))
+            for world1 in self.worlds:
+                for world2 in self.worlds:
+                    agent_rels.add((world1.name, world2.name))
             self.relations[str(agent_idx)] = agent_rels
 
         self.relations.update(self.add_symmetric_edges(self.relations))
@@ -164,7 +153,7 @@ class MillerHollowModel:
 
                 x1, y1 = world_positions[world_idx[start]]
                 x2, y2 = world_positions[world_idx[end]]
-                plt.plot((x1, x2), (y1, y2), color=color, alpha=0.3)
+                plt.plot((x1, x2), (y1, y2), color=color, alpha=0.5)
 
         # Plot the worlds
         plt.scatter(*zip(*world_positions), zorder=10, color=(0, 0, 0))

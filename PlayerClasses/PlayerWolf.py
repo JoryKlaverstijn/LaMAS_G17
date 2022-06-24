@@ -4,22 +4,23 @@ import random
 class PlayerWolf(Player):
     def __init__(self, name, role, roles, player_id):
         super().__init__(name, role, roles, player_id)
-        self.knows_im_wolf = []
+        self.km = None
 
-    def get_vote(self, km, alive_player_ids):
-        # We first vote anyone who knows we are a wolf
-        if self.knows_im_wolf:
-            return self.knows_im_wolf.pop()
+    def get_vote(self, alive_player_ids):
+        targets = [idx for idx in alive_player_ids if idx != self.id]
+        # We first vote anyone who we know knows our role
+        for idx in targets:
+            if self.km.knows_wolf(idx, self.id) and not self.km.knows_wolf(self.id, idx):
+                return idx
 
         # Then we vote anyone who we know is a little girl
-        targets = [idx for idx in alive_player_ids if idx != self.id]
         for idx in targets:
-            if km.knows_little_girl(self.id, idx):
+            if self.km.knows_little_girl(self.id, idx):
                 return idx
 
         # We then kill anyone who we know is good
         for idx in targets:
-            if km.knows_good(self.id, idx):
+            if self.km.knows_good(self.id, idx):
                 return idx
 
         # Some edge case (just in case)

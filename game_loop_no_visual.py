@@ -9,9 +9,9 @@ import matplotlib.pyplot as plt
 # There should at least be 1 wolf, and 1 non-wolf role
 roles = {
     Role.WOLF: 2,
-    Role.VILLAGER: 2,
-    Role.SEER: 1,
-    Role.LITTLE_GIRL: 1,
+    Role.VILLAGER: 1,
+    Role.SEER: 2,
+    Role.LITTLE_GIRL: 0,
     Role.HUNTER: 1
 }
 assert sum(roles.values()) <= 8, 'Too many players (should be 8 or less)'
@@ -22,7 +22,7 @@ game = Game(roles, text_chat)
 
 # Main game loop
 wins = [0, 0]
-for i in range(1000):
+for i in range(100):
     game.reset()
     while True:
         if game.game_over():
@@ -32,8 +32,8 @@ for i in range(1000):
                 wins[1] += 1
             break
         game.step()
-    if i % 10 == 0:
-        print(i)
+    print(i)
 
 plt.bar(['Wolves', 'Villagers'], wins)
+plt.ylabel('Wins')
 plt.show()
