@@ -1,4 +1,4 @@
-### The Werewolves of Millers Hollow
+# The Werewolves of Millers Hollow
 
 The Werewolves of Millers Hollow is a social deduction game with multiple different player roles, in which the players attempt to figure out the roles of the other players. The role of each player is hidden from the other players and can only be revealed through a couple of game mechanics. The roles are divided up into wolves and villagers. The wolves attempt to kill off all the villagers to win the game, while the villagers attempt to kill all of the wolves to win the game. Each day a single game cycle takes place in which all phases of the game cycle are ran through. There are two voting moments in the game cycle: only the werewolves can vote on who they want to kill at night and all of the players can vote on who they want to kill during the day.
 
@@ -7,31 +7,31 @@ This report is structured by first explaining the specific game details of The W
 ## Roles
 There are several different roles in the game. Note that all roles are villagers, except the werewolves.
 
-# Werewolves
+### Werewolves
 The werewolves attempt to kill off all the villagers. Each night they wake up to share information and to vote on who they want to kill.
 
-# Thief
+### Thief
 The thief is allowed to switch its own role. After having seen its own role, the thief is allowed to switch its role card with one of two randomly drawn cards from the role deck on the first night.
 
-# Cupid
+### Cupid
 Cupid can appoint two other players to be lovers, but only on the first night.
 
-# Lovers
+### Lovers
 Lovers become aware that they are each other's lovers after cupid has made them so on the first night. If one lover dies, the other lover dies as well and lovers can not vote against one another. If either of the lovers is a werewolf while the other is not, then they need to eliminate all other players to win.
 
-# Seer
+### Seer
 The seer can view the role card of another player each night.
 
-# Witch
+### Witch
 The witch has two potions, one potion that can save a werewolf victim and one potion that can kill another player, she can use both potions only once. The witch is capable of saving herself if the werewolves attempted to kill her.
 
-# Little girl
+### Little girl
 The little girl is allowed to spy on the werewolves during the werewolf phase. However she must be careful to avoid the werewolves detecting her.
 
-# Hunter
+### Hunter
 When the hunter is killed, he is allowed to kill one other player of their choosing.
 
-# Mayor
+### Mayor
 The mayor is an additional role card that can be given to any of the players. The players can vote on who gets to be the mayor. The mayor gets two votes instead of one.
 
 ## Game cycle & Discussions
