@@ -1,4 +1,4 @@
-![example_game_image](https://user-images.githubusercontent.com/63673224/175591941-a46b9dd2-fe89-409b-bf39-4a0ff42779ea.png)
+![example_game_image](https://user-images.githubusercontent.com/63673224/175594560-0adea88c-cade-4372-8ad0-289063a35c50.png)
 
 # Setup
 1) Install all required libraries (`pip install numpy`, `pip install pygame`, `pip install matplotlib`)
