@@ -14,6 +14,11 @@ By means of voting, the villagers must try and kill all wolves, before the wolve
 kill every villager during the night. The villagers can have various special sub-roles, like
 a seer who can reveal someone's identity, or a little girl who can peek while
 the wolves are killing someone.
+
+# Logic explanation
+Each agent's knowledge is modeled by a separate Kripke model. In each model, the relations of all agents between the worlds are modeled.
+Only when an agent finds information out, or finds out that someone else knows something, their Kripke model is updated.
+The good players are allowed to discuss knowledge, and make a voting decision based on their knowledge.
  
 # Controls
 * `Step` or space-bar: Progresses the game by 1 step
@@ -35,10 +40,3 @@ the wolves are killing someone.
 * `TextChat.py`: Class for the in-game chat showing messages and events
 * `Controller.py`: Class for handling any key/mouse events
 * `View.py`: Handles the drawing of all the game components
-
-# Extra notes
-Tried to follow the suggested 'model-view-controller' structure. 
-Feel free to comment on the code-structure, and general readability of the code. 
-Also feel free to email to any of our school emails if something is not clear.
-Unfortunately we did not yet have time to implement the logic of the AI, but we could
-probably discuss this during our meeting.
