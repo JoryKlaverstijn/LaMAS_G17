@@ -51,6 +51,22 @@ Another related simplification that was introduced was the roles that each playe
 
 ## Kripke Model Formalization
 In our version of the game, each player keeps track of its own knowledge, having its own kripke model. The explanation that follows here are the kripke models such as each player keeps track of by itself. The model described here is based on having the following roles: 2 wolves, 1 little girl, 1 seer, 1 hunter and 3 villagers; it shows how any combination of roles can be defined using this model. Before the model can be defined the agents and the predicates used in the model need to be defined first:
+
+- A set of $m$ players, $A = \{a_{1}, a_{2}, ... , a_{m}\}$
+- A set of predicates, for each player, $P = \{\{wolf_{1}, wolf_{2}, ... , wolf_{m}\}, \{girl_{1}, girl_{2}, ... , girl_{m}\} \}$
+
+The formal definition of the Kripke model M: $\langle S, \pi, R_{1}, ... , R_{m}\rangle$ is then as follows:
+
+- States $S$:
+  $S = \{s_{wolf:i-j, girl:k} | a_{i} \in A \land a_{j} \in A \land a_{k} \in A \land i < j \land k \neq i \land k \neq j\}$
+- Evaluations $\pi$:
+  $\pi (s_{wolf:i-j, girl:k})($wolf$_{l}) = t$ iff $l = i \lor l = j$
+  $\pi (s_{wolf:i-j, girl:k})($girl$_{l}) = t$ iff $l = k$
+  $\pi (s_{wolf:i-j, girl:k})($villager$_{l}) = t$ iff $l \neq k \land l \neq i \land l \neq j$
+- Relations $R$:
+    Each possible world is connected to each possible world that can still be the true world, including reflexive relations.
+    $R = \{(s_{i}, s_{j}) | s_{i} \in S \land s_{j} \in S \}$
+
 ![kripke_model_formalization](https://user-images.githubusercontent.com/63637256/175824273-e98f2212-766e-4325-9e47-9b757d27d18b.png)
 
 
@@ -67,7 +83,7 @@ There are as many possible worlds as there are possible permutations of the role
 When the game starts, each player gets notified of their own identity. Next, stages start in which communication between the agents is possible, which always happens through thruthful public announcements to the kripke model of the agent receiving information. Each wolf gets sent a public announcement about the other wolves, entailing that each wolf now knows about all other wolves.
 
 ### Night
-The seer identifies a person to view the role of, again being sent a public announcement. The wolf voting stage then starts, in which the little girl has the option to peek or not, which the wolves have a chance of detecting if she does. If the little girl decides to peek, she figures out the identity of both of the wolves. If the little girl is also caught by the wolves, the wolves figure out the identity of the little girl and the little girl knows that the wolves know that she is the little girl. If the little girl does not decide to peek then no information is shared between the little girl and the wolves. Regardless of what happens, afterwards the wolves vote on who they want to kill, with a public announcement on who they killed being sent to all other players. If the dead persons turns out to be a hunter, then the hunter has to shoot another player; the process can cycle if there are multiple hunters in the game. 
+The seer identifies a person to view the role of, again being sent a public announcement. The wolf voting stage then starts, in which the little girl has the option to peek or not, which the wolves have a chance of detecting if she does. If the little girl decides to peek, she figures out the identity of both of the wolves. If the little girl is also caught by the wolves, the wolves figure out the identity of the little girl and the little girl knows that the wolves know that she is the little girl. If the little girl does not decide to peek then no information is shared between the little girl and the wolves. Regardless of what happens, afterwards the wolves vote on who they want to kill, with a public announcement on who they killed being sent to all other players. If the dead persons turns out to be a hunter, then the hunter has to shoot another player; the process can cycle if there are multiple hunters in the game.
 
 ### Day and continuation
 Next the day voting stage starts, which starts with each player sharing aquired and not yet shared information. The little girl and the seer can share one piece of identity information, which they tell to the other players through public announcements. Next each player gets to vote on who they want to kill. Once again, a hunter killing cycle can occur based on who was killed. The dead player(s) identity is revealed and all other players are made aware of it. Afterwards, the next night starts, which begins with the seer picking a person to identify again.
@@ -88,8 +104,6 @@ During the day all the players in the game can vote on someone that they want to
 The hunter can select to kill someone if he has been killed. This selection is the same as the vote he would make during day voting.
 
 ## Simple example game Kripke model analysis
-latex test $h = s \sqrt {\frac {N + 1} {2N}}$
-$$h = s \sqrt {\frac {N + 1} {2N}}$$
 Milan?
 
 ## Experiments & Results
