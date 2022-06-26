@@ -1,3 +1,5 @@
+{% include mathjax.html %}
+
 # The Werewolves of Millers Hollow
 ![example_game_image](https://user-images.githubusercontent.com/63673224/175807188-43e3595d-a05a-43f4-8b30-dd6a8869e262.png)
 
@@ -67,6 +69,8 @@ During the day all the players in the game can vote on someone that they want to
 The hunter can select to kill someone if he has been killed. This selection is the same as the vote he would make during day voting.
 
 ## Simple example game Kripke model analysis
+latex test $h = s \sqrt {\frac {N + 1} {2N}}$
+$$h = s \sqrt {\frac {N + 1} {2N}}$$
 Milan?
 
 ## Experiments & Results
