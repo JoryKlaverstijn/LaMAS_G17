@@ -68,7 +68,7 @@ The formal definition of the Kripke model M: $\langle S, \pi, R_{1}, ... , R_{m}
 
 - Evaluations $\pi$:
 
-  $$\pi (s_{wolf:i-j, girl:k})($$$wolf$$_{l}) = t$$ iff $l = i \lor l = j$$
+  $$\pi (s_{wolf:i-j, girl:k})($$wolf$$_{l}) = t$$ iff $l = i \lor l = j$$
 
   $$\pi (s_{wolf:i-j, girl:k})($$girl$$_{l}) = t$$ iff $l = k$$
 
@@ -79,8 +79,6 @@ The formal definition of the Kripke model M: $\langle S, \pi, R_{1}, ... , R_{m}
     Each possible world is connected to each possible world that can still be the true world, including reflexive relations.
 
     $$R = \{(s_{i}, s_{j}) | s_{i} \in S \land s_{j} \in S \}$$
-
-![kripke_model_formalization](https://user-images.githubusercontent.com/63637256/175824273-e98f2212-766e-4325-9e47-9b757d27d18b.png)
 
 
 ### Possible worlds
