@@ -62,11 +62,11 @@ The formal definition of the Kripke model M: $\langle S, \pi, R_{1}, ... , R_{m}
 
 - Evaluations $\pi$:
 
-  $$\pi (s_{wolf:i-j, girl:k})($$wolf$$_{l}) = t$$ iff $l = i \lor l = j$$
+  $$\pi (s_{wolf:i-j, girl:k})(\text{wolf}_{l}) = t \text{ iff } l = i \lor l = j$$
 
-  $$\pi (s_{wolf:i-j, girl:k})($$girl$$_{l}) = t$$ iff $l = k$$
+  $$\pi (s_{wolf:i-j, girl:k})(\text{girl}_{l}) = t \text{ iff } l = k$$
 
-  $$\pi (s_{wolf:i-j, girl:k})($$villager$$_{l}) = t$$ iff $$l \neq k \land l \neq i \land l \neq j$$
+  $$\pi (s_{wolf:i-j, girl:k})(\text{villagers}_{l}) = t \text{ iff } l \neq k \land l \neq i \land l \neq j$$
 
 - Relations $$R$$:
 
