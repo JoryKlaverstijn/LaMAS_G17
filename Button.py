@@ -1,10 +1,11 @@
 class Button:
-    def __init__(self, x, y, w, h, text, highlighted_color, regular_color, active_func=None):
+    def __init__(self, x, y, w, h, text, highlighted_color, regular_color, text_color=(0, 0, 0), active_func=None):
         self.x, self.y = x, y
         self.w, self.h = w, h
         self.text = text
         self.color1 = highlighted_color
         self.color2 = regular_color
+        self.text_color = text_color
         self.active_func = active_func  # A function passed that is called to check if the button is inactive (drawing)
 
     def mouse_on_button(self, mouse):
@@ -18,7 +19,7 @@ class Button:
         Draws the button with the color based on whether or not the mouse is on the button.
         """
         text_font = pygame.font.SysFont('Corbel', 35)
-        rendered_text = text_font.render(self.text, True, (0, 0, 0))
+        rendered_text = text_font.render(self.text, True, self.text_color)
         pygame.draw.rect(screen, (0, 0, 0), [self.x-5, self.y-5, self.w+10, self.h+10])
         if self.active_func is not None and not self.active_func():
             pygame.draw.rect(screen, (255, 255, 255), [self.x, self.y, self.w, self.h])

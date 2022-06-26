@@ -126,49 +126,59 @@ class MillerHollowModel:
             result[agent] = result_agents
         return result
 
-    def plot_model(self, player=None):
-        colors = ['darkred', 'red', 'darkorange', 'yellowgreen', 'green', 'cyan', 'royalblue', 'purple']
+    def plot_model(self, player_idx):
+        line_color = ['darkred', 'red', 'darkorange', 'yellowgreen', 'green', 'cyan', 'royalblue', 'purple'][player_idx]
         fig, ax = plt.subplots(1)
         fig.set_size_inches(10, 10)
         r = 20
         world_angles = np.linspace(0, np.pi * 2, len(self.worlds) + 1)[:-1]
         world_positions = [(r * np.cos(theta), r * np.sin(theta)) for theta in world_angles]
         world_idx = {world.name: idx for idx, world in enumerate(self.worlds)}
+        agent, relations = list(self.kripke_structure.relations.items())[player_idx]
 
-        custom_legend = []
         # Plot the relations
-        for color, (agent, relations) in zip(colors, self.kripke_structure.relations.items()):
-            # We only plot the selected player
-            if player is not None and agent != player:
-                continue
-
-            # We don't plot dead players if we plot all the lines
-            if player is None and not self.players[int(agent)].alive:
-                continue
-
-            custom_legend.append((Line2D([0],[0], color=color, lw=2), self.players[int(agent)].name))
-            for start, end in relations:
-                if start == end:
-                    continue
-
+        for start, end in relations:
+            if start != end:
                 x1, y1 = world_positions[world_idx[start]]
                 x2, y2 = world_positions[world_idx[end]]
-                plt.plot((x1, x2), (y1, y2), color=color, alpha=0.5)
+                plt.plot((x1, x2), (y1, y2), color=line_color, alpha=0.5)
 
         # Plot the worlds
         plt.scatter(*zip(*world_positions), zorder=10, color=(0, 0, 0))
+
+        # Plot the real world
         plt.scatter(*world_positions[world_idx[self.real_world]], color=(0, 1, 0), s=100, zorder=10)
+
+        # Plot the world descriptions
         for world, (x, y) in zip(self.worlds, world_positions):
             degree = world_angles[world_idx[world.name]] / np.pi * 180
-            if 90 <= degree <= 270:
-                degree += 180
-            plt.text(x*1.20, y*1.20, world.name, rotation=degree, ha='center', va='center', fontsize=9)
+            flip = 90 <= degree <= 270
+            for letter, offset in zip(map(str, range(self.n_players)), np.linspace(1, 1.2, self.n_players)):
+                if flip:
+                    offset = 2.2 - offset
+                if letter in world.name.split(',')[0]:
+                    color = 'red'
+                elif letter in world.name.split(',')[1]:
+                    color = 'cyan'
+                else:
+                    color = 'black'
+                plt.text(x * 1.05 * offset,
+                         y * 1.05 * offset,
+                         letter, rotation=degree + flip * 180, ha='center', va='center', color=color, fontsize=9)
+
         plt.xticks([])
         plt.yticks([])
-
         plt.xlim(-r * 1.4, r * 1.4)
         plt.ylim(-r * 1.4, r * 1.4)
-        plt.title('Kripke Model')
+        plt.title(f'Kripke Model: {self.players[player_idx].name}')
+
+        custom_legend = [
+            (Line2D([0],[0], color=line_color, lw=2), self.players[player_idx].name),
+            (Line2D([0], [0], marker='o', color='w', markerfacecolor=(0, 1, 0), markersize=15), 'Real world'),
+            (Line2D([0], [0], marker=r'$x$', color='w', markerfacecolor='red', markersize=15), 'Wolf'),
+            (Line2D([0], [0], marker=r'$x$', color='w', markerfacecolor='cyan', markersize=15), 'Little girl')
+        ]
+
         plt.legend(*zip(*custom_legend))
         plt.show()
 
@@ -209,6 +219,10 @@ class MillerHollowModel:
     def update_knows_good(self, observer, observee):
         # Updates the knowledge of the observer that observee is a wolf
         sentence = Not(Atom(f'IsWolf:{observee}'))
+        self.kripke_structure_solve_a(str(observer), sentence)
+
+    def update_knows_not_little_girl(self, observer, observee):
+        sentence = Not(Atom(f'IsGirl:{observee}'))
         self.kripke_structure_solve_a(str(observer), sentence)
 
     def update_sentence(self, observer, sentence):

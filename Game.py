@@ -49,6 +49,8 @@ class Game:
         self.roles = roles
         self.initialize_players()
         self.state = State.START
+        self.vote_total = 0
+        self.correct_vote_total = 0
 
 
     def initialize_players(self):
@@ -100,6 +102,7 @@ class Game:
                     player1.km.update_knows_little_girl(player2.id, revealed_player.id)
                 else:
                     player1.km.update_knows_good(player2.id, revealed_player.id)
+                    player1.km.update_knows_not_little_girl(player2.id, revealed_player.id)
 
     def start(self):
         """
@@ -112,6 +115,7 @@ class Game:
                 player.km.update_knows_little_girl(player.id, player.id)
             else:
                 player.km.update_knows_good(player.id, player.id)
+                player.km.update_knows_not_little_girl(player.id, player.id)
         self.text_chat.add_message("The game has started, and everyone knows their own identity.", (255, 255, 0))
         self.state = State.WOLVES_IDENTIFY_EACH_OTHER
 
@@ -153,6 +157,7 @@ class Game:
         seer = self.seers.pop()
         random.shuffle(self.alive_players)
         chosen_player = self.players[seer.choose_player_to_reveal(self.alive_players)]
+
         # Update the knowledge of the seer on the role of the chosen person
         if chosen_player.role == Role.WOLF:
             seer.km.update_knows_wolf(seer.id, chosen_player.id)
@@ -160,6 +165,7 @@ class Game:
             seer.km.update_knows_little_girl(seer.id, chosen_player.id)
         else:
             seer.km.update_knows_good(seer.id, chosen_player.id)
+            seer.km.update_knows_not_little_girl(seer.id, chosen_player.id)
         self.text_chat.add_message(
             f"{seer.name} has identified the role of {chosen_player.name}" +
             f" ({str(chosen_player.role)[5:]})", (196, 196, 196))
@@ -174,16 +180,15 @@ class Game:
         self.alive_players = [player.id for player in self.players if player.alive]
         self.votes = [0 for _ in range(len(self.players))]
 
+        # See if the little girl has peeked before, and if not, check if it peeks now
         random.shuffle(self.players_to_vote)
         for player in self.players:
-            if player.alive and player.role == Role.LITTLE_GIRL and not player.has_peaked:
+            if player.alive and player.role == Role.LITTLE_GIRL and not player.has_peeked:
                 if random.random() < 0.5:
                     self.state = State.LITTLE_GIRL_PEEKS
-                    player.has_peaked = True
+                    player.has_peeked = True
                     return
-                else:
-                    self.state = State.VOTING_NIGHT
-                    return
+                break
 
         self.state = State.VOTING_NIGHT
 
@@ -271,6 +276,12 @@ class Game:
             f"{voting_player.name} has voted to kill {voted_player.name} ({voted_amnt}/{total_to_vote})",
             (255, 128, 128)
         )
+
+        # Keep track of the correct votes
+        if voting_player.role != Role.WOLF:
+            self.vote_total += 1
+            if voted_player.role == Role.WOLF:
+                self.correct_vote_total += 1
 
     def voting_day_results(self):
         """
@@ -459,3 +470,5 @@ class Game:
         self.text_chat.reset()
         self.initialize_players()
         self.state = State.START
+        self.vote_total = 0
+        self.correct_vote_total = 0

@@ -37,7 +37,7 @@ class Controller:
 
             for but in self.model_buttons:
                 if but.mouse_on_button(mouse):
-                    self.game.players[int(but.text)].km.plot_model(but.text)
+                    self.game.players[int(but.text) - 1].km.plot_model(int(but.text) - 1)
 
 
         # Handle buttons (Space, up, down)

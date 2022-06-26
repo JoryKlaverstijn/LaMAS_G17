@@ -18,18 +18,29 @@ class View:
 
     def draw_player(self, pygame, screen, location, color, text_color, player):
         text_font = pygame.font.SysFont('Corbel', 35)
+        # Draw the player card and the border of the player card
         if player.voted:
             pygame.draw.rect(screen, (255, 0, 255), [location[0] - 5, location[1] - 5, 210, 260])
         else:
             pygame.draw.rect(screen, (0, 0, 0), [location[0] - 5, location[1] - 5, 210, 260])
         pygame.draw.rect(screen, color, [*location, 200, 250])
+
+        # Draw the name of the player
         text = text_font.render(player.name, True, text_color)
         text_width = text.get_rect().width
         text_height = text.get_rect().height
         screen.blit(text, (location[0] + 100 - text_width // 2, location[1] + 225 - text_height // 2))
+
+        # Draw the player image, and if the player has died, a cross
         screen.blit(self.player_images[player.role], location)
         if not player.alive:
             screen.blit(self.player_images['dead_cross'], location)
+
+        # Draw the player number
+        pygame.draw.rect(screen, (0, 0, 0), [location[0] - 5, location[1] - 5, 45, 45])
+        pygame.draw.rect(screen, NAVY_BLUE, [location[0], location[1], 35, 35])
+        text = text_font.render(str(player.id + 1), True,  (255, 255, 255))
+        screen.blit(text, location)
 
     def draw_game(self, pygame, screen, game, all_buttons, mouse):
         """
