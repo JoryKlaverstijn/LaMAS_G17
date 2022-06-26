@@ -29,8 +29,9 @@ Due to the complexity of the game some simplifications were made to the original
 Another related simplification that was introduced was the roles that each player assigns to itself and the other players (its perceived state of reality). Normally this would include all the roles that are in the game, but since this makes the amount of possible worlds in the kripke models explode into the millions, we decided to approach it from a different angle. For the villagers it is sufficient to know if a person is a wolf or not, since they only care about removing wolves from the game. For the wolves it is important that they know who the villagers are, but also what type of villagers they are; they are more interested in removing some role types from the game earlier than other role types. These role types include the little girl and the seer. However, they only focus on the little girl since she is capable of revealing both of the wolves if she decides to peek. We decided to not include a perceived seer role since that came with more added complexity to the game. To sum up, there are two base roles that each player uses to determine the roles of other players, wolf or not wolf and little girl and not little girl. Combining these two options results in four possible combinations which the players used to determine the perceived roles of each player, with one of those being impossible (wolf and little girl).
 
 ## Kripke Model Formalization
-In our version of the game, each player keeps track of its own knowledge, having its own kripke model. The explanation that follows here are the kripke models such as each player keeps track of by itself. Before the model can be defined the agents and the predicates used in the model need to be defined first, the model consists of:
-![kripke_model_formalization](https://user-images.githubusercontent.com/63637256/175820743-d28e81a9-7c2a-4bee-9b2a-fd1c14ffd51d.png)
+In our version of the game, each player keeps track of its own knowledge, having its own kripke model. The explanation that follows here are the kripke models such as each player keeps track of by itself. The model described here is based on having the following roles: 2 wolves, 1 little girl, 1 seer, 1 hunter and 3 villagers; it shows how any combination of roles can be defined using this model. Before the model can be defined the agents and the predicates used in the model need to be defined first:
+![kripke_model_formalization](https://user-images.githubusercontent.com/63637256/175824273-e98f2212-766e-4325-9e47-9b757d27d18b.png)
+
 
 ### Possible worlds
 There are as many possible worlds as there are possible permutations of the roles in the game.
@@ -50,16 +51,20 @@ The seer identifies a person to view the role of, again being sent a public anno
 ### Day and continuation
 Next the day voting stage starts, which starts with each player sharing aquired and not yet shared information. The little girl and the seer can share one piece of identity information, which they tell to the other players through public announcements. Next each player gets to vote on who they want to kill. Once again, a hunter killing cycle can occur based on who was killed. The dead player(s) identity is revealed and all other players are made aware of it. Afterwards, the next night starts, which begins with the seer picking a person to identify again.
 
-## Voting stages
+## Selection (voting) stages
+At any type of selection stage, the best player to select is based on the role of the person who is doing the selection. There are two voting stages and there are two selection stages, explained for each different type:
 
-### Wolves
+### Night voting
+The wolves get to vote at night on who they want to kill. They have three options for voting based on priority. The first option is to select a player that knows about them being the wolves, if the wolves know about this they will want to kill them first. If that type of knowledge is not present in the model of a wolf, then the second option is elected, which is voting out the little girl player if the wolves know the role of a little girl in the game. If that option is also not present, then the wolves will elect to kill anyone who is a villager; since the wolves know about each other, they will randomly elect one of the other players to kill.
 
 ### Seer
+The seer gets to reveal the role of another player. Like the wolves, the seer also has three selection options based on priority. The first option is for the seer to select a player that he does not know not to be a wolf and hence is suspected of possibly being a wolf. If such an option exists, that option will be used first. If such an option does not exist, which can happen when identities of both wolves or all villagers are known, then the seer will reveal the role of a random player that it does not know the identity of yet. If that option is also not available, then the wolf will use the third option; selecting the role of someone that was already knwon to him.
 
-### Voting during the day
+### Day voting
+During the day all the players in the game can vote on someone that they want to kill. For the wolves the voting occurs the same as in the night voting phase (they make the same choices), but this time they have to comply with the votes of others as well. For the villagers there are two options for voting. The first option is when a villager knows about the identity of a wolf, they will then vote to kill the wolf. If that information is not available, the villager will use the second option; voting for a player that they do not know not to be the wolf, being suspected of being a wolf. Note that the seer, little girl and hunter all classify as villagers in the day voting stage.
 
 ### Hunter
-
+The hunter can select to kill someone if he has been killed. This selection is the same as the vote he would make during day voting.
 
 ## Simple example game Kripke model analysis
 Milan?
