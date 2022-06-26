@@ -52,33 +52,33 @@ Another related simplification that was introduced was the roles that each playe
 ## Kripke Model Formalization
 In our version of the game, each player keeps track of its own knowledge, having its own kripke model. The explanation that follows here are the kripke models such as each player keeps track of by itself. The model described here is based on having the following roles: 2 wolves, 1 little girl, 1 seer, 1 hunter and 3 villagers; it shows how any combination of roles can be defined using this model. Before the model can be defined the agents and the predicates used in the model need to be defined first:
 
-- A set of $m$ players,
+- A set of $$m$$ players,
 
-  $A = \\{a_{1}, a_{2}, ... , a_{m}\\}$
+  $$A = \{a_{1}, a_{2}, ... , a_{m}\}$$
 
 - A set of predicates, for each player,
 
-  $P = \\{\\{wolf_{1}, wolf_{2}, ... , wolf_{m}\\}, \\{girl_{1}, girl_{2}, ... , girl_{m}\\} \\}$
+  $$P = \{\{wolf_{1}, wolf_{2}, ... , wolf_{m}\}, \{girl_{1}, girl_{2}, ... , girl_{m}\} \}$$
 
 The formal definition of the Kripke model M: $\langle S, \pi, R_{1}, ... , R_{m}\rangle$ is then as follows:
 
-- States $S$:
+- States $$S$$:
 
-  $$S = \\{s_{wolf:i-j, girl:k} | a_{i} \in A \land a_{j} \in A \land a_{k} \in A \land i < j \land k \neq i \land k \neq j\\}$$
+  $$S = \{s_{wolf:i-j, girl:k} | a_{i} \in A \land a_{j} \in A \land a_{k} \in A \land i < j \land k \neq i \land k \neq j\}$$
 
 - Evaluations $\pi$:
 
-  $$\pi (s_{wolf:i-j, girl:k})($wolf$_{l}) = t$ iff $l = i \lor l = j$$
+  $$\pi (s_{wolf:i-j, girl:k})($$$wolf$$_{l}) = t$$ iff $l = i \lor l = j$$
 
-  $$\pi (s_{wolf:i-j, girl:k})($girl$_{l}) = t$ iff $l = k$$
+  $$\pi (s_{wolf:i-j, girl:k})($$girl$$_{l}) = t$$ iff $l = k$$
 
   $$\pi (s_{wolf:i-j, girl:k})($$villager$$_{l}) = t$$ iff $$l \neq k \land l \neq i \land l \neq j$$
 
-- Relations $R$:
+- Relations $$R$$:
 
     Each possible world is connected to each possible world that can still be the true world, including reflexive relations.
 
-    $$R = \\{(s_{i}, s_{j}) | s_{i} \in S \land s_{j} \in S \\}$$
+    $$R = \{(s_{i}, s_{j}) | s_{i} \in S \land s_{j} \in S \}$$
 
 ![kripke_model_formalization](https://user-images.githubusercontent.com/63637256/175824273-e98f2212-766e-4325-9e47-9b757d27d18b.png)
 
