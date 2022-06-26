@@ -3,28 +3,16 @@
 
 The Werewolves of Millers Hollow is a social deduction game with multiple different player roles, in which the players attempt to figure out the roles of the other players. The role of each player is hidden from the other players and can only be revealed through a couple of game mechanics. The roles are divided up into wolves and villagers. The wolves attempt to kill off all the villagers to win the game, while the villagers attempt to kill all of the wolves to win the game. Each day a single game cycle takes place in which all phases of the game cycle are ran through. There are two voting moments in the game cycle: only the werewolves can vote on who they want to kill at night and all of the players can vote on who they want to kill during the day.
 
-This report is structured by first explaining the specific game details of The Werewolves of Millers Hollow, after which simplifications we introduced are discussed, leading into kripke model formalizations of the simulations and results from running the simulations.
+This report has the following structure: First the simplified version of the Werewolves of Millers Hollow that we used in our simulations is explained, afterwards, kripke model formalizations of the simulations and results from running the simulations are shown.
 
 ## Roles
-There are several different roles in the game. Note that all roles are villagers, except the werewolves.
+There are several different roles in the game. In the game there are multiple roles that are not used in our simplified version of the game, these include: The thief, cupid, the lovers the witch and the mayor mechanic. Note that all roles are villagers, except the werewolves.
 
 ### Werewolves
 The werewolves attempt to kill off all the villagers. Each night they wake up to share information and to vote on who they want to kill.
 
-### Thief
-The thief is allowed to switch its own role. After having seen its own role, the thief is allowed to switch its role card with one of two randomly drawn cards from the role deck on the first night.
-
-### Cupid
-Cupid can appoint two other players to be lovers, but only on the first night.
-
-### Lovers
-Lovers become aware that they are each other's lovers after cupid has made them so on the first night. If one lover dies, the other lover dies as well and lovers can not vote against one another. If either of the lovers is a werewolf while the other is not, then they need to eliminate all other players to win.
-
 ### Seer
 The seer can view the role card of another player each night.
-
-### Witch
-The witch has two potions, one potion that can save a werewolf victim and one potion that can kill another player, she can use both potions only once. The witch is capable of saving herself if the werewolves attempted to kill her.
 
 ### Little girl
 The little girl is allowed to spy on the werewolves during the werewolf phase. However she must be careful to avoid the werewolves detecting her.
@@ -32,17 +20,42 @@ The little girl is allowed to spy on the werewolves during the werewolf phase. H
 ### Hunter
 When the hunter is killed, he is allowed to kill one other player of their choosing.
 
-### Mayor
-The mayor is an additional role card that can be given to any of the players. The players can vote on who gets to be the mayor. The mayor gets two votes instead of one.
-
-## Game cycle & Discussions
-The game starts by each player being given a role card and each player realising their own role. The first night then commences in which several players can take special first night actions, these include: The thief, cupid and the lovers. Afterwards the other players also perform their nightly actions. The werewolves are allowed to exchange information and to vote on who they want to kill, while the little girl will want to spy on them. The seer and witch will also take their actions after. After the night is over, the players should vote on who they want to make the mayor of the village. Afterwards they can exchange information and can vote on who they want to kill. The game then progresses into the night again, with the thief, cupid and the lovers now taking no more action.
+### Villager
+The ordinary villager has no extra actions that it can take, the only decisions it can make are related to voting during the day time.
 
 ## Simplifications
-Due to the complexity of the game there were some simplifications introduced. The primary simplification is related to the fact that there are too many roles in the original game to represent it in a kripke model. Therefore we decided to remove some of the roles and reduce the amount of players in the game. The amount of players therefore is 8 with 3 of those being ordinary villagers, 2 being werewolves, 1 being the little girl and 2 being seers. Another related simplification that was introduced was the roles that each player assigns to itself and the other players (its perceived state of reality). Normally this would include all the roles that are in the game, but since the villager roles are not important to know for other villagers it is sufficient for the villagers to know if a player is a wolf or not. For the wolves this is slighlty different as they would benefit more from killing off players that have a higher chance of killing them such as the little girl or the seer. Therefore there are three roles that are perceived by the players in the game: wolf, not a wolf or other. Other includes anything that is not an ordinary villager and a wolf.
+Due to the complexity of the game some simplifications were made to the original game. The primary simplification is related to the fact that there are too many roles in the original game to represent it in a kripke model without the amount of possible worlds and relations exploding in complexity. Therefore we decided to remove some of the roles and reduce the amount of players in the game. The maximum amount of players that can be used in the game is 8, with there being 5 different roles instead of the original 8. We also decided to remove the mayor and lovers mechanic. The amount of roles and the roles that can be taken by the players is dynamic, with different combinations being possible.
+
+Another related simplification that was introduced was the roles that each player assigns to itself and the other players (its perceived state of reality). Normally this would include all the roles that are in the game, but since this makes the amount of possible worlds in the kripke models explode into the millions, we decided to approach it from a different angle. For the villagers it is sufficient to know if a person is a wolf or not, since they only care about removing wolves from the game. For the wolves it is important that they know who the villagers are, but also what type of villagers they are; they are more interested in removing some role types from the game earlier than other role types. These role types include the little girl and the seer. However, they only focus on the little girl since she is capable of revealing both of the wolves if she decides to peek. We decided to not include a perceived seer role since that came with more added complexity to the game. To sum up, there are two base roles that each player uses to determine the roles of other players, wolf or not wolf and little girl and not little girl. Combining these two options results in four possible combinations which the players used to determine the perceived roles of each player, with one of those being impossible (wolf and little girl).
 
 ## Kripke Model Formalization
-Explanation of the individual kripke models for each player, also explanation of how each player is capable of higher order knowledge. Include state figures here!
+In our version of the game, each player keeps track of its own knowledge, having its own kripke model. The explanation that follows here are the kripke models such as each player keeps track of by itself. Before the model can be defined the agents and the predicates used in the model need to be defined first, the model consists of:
+![kripke_model_formalization_1](https://user-images.githubusercontent.com/63637256/175819490-01e29a6c-ad43-436e-b8ac-63ef1fa86a95.png)
+
+The formal definition of the Kripke model M: $\langle S, \pi, R\rangle$ is then as follows:
+![kripke_model_formalization_2](https://user-images.githubusercontent.com/63637256/175819563-1f76d666-ff7e-4055-b430-b095e8b4d94f.png)
+
+### Possible worlds
+There are as many possible worlds as there are possible permutations of the roles in the game.
+
+## Game cycle
+<!--
+- Flowchart should be used here
+- Different voting methods for different players should be explained here
+-->
+![Flowchart stages](https://user-images.githubusercontent.com/63637256/175819749-4d057d47-68aa-476f-8f77-e0a5d448948f.jpeg)
+When the game starts, each player gets notified of their own identity. Next, stages start in which communication between the agents is possible, which always happens through thruthful public announcements to the kripke model of the agent receiving information. Each wolf gets sent a public announcement about the other wolves, entailing that each wolf now knows about all other wolves. Next the seer identifies a person to view the role of, again being sent a public announcement. The wolf voting stage then starts, in which the little girl has the option to peek or not, which the wolves have a chance of detecting if she does. If the little girl decides to peek, she figures out the identity of both of the wolves. If the little girl is also caught by the wolves, the wolves figure out the identity of the little girl and the little girl knows that the wolves know that she is the little girl. If the little girl does not decide to peek then no information is shared between the little girl and the wolves. Regardless of what happens, afterwards the wolves vote on who they want to kill, with a public announcement on who they killed being sent to all other players. If the dead persons turns out to be a hunter, then the hunter has to shoot another player; the process can cycle if there are multiple hunters in the game. Next the day voting stage starts, which starts with each player sharing aquired and not yet shared information. The little girl and the seer can share one piece of identity information, which they tell to the other players through public announcements. Next each player gets to vote on who they want to kill. Once again, a hunter killing cycle can occur based on who was killed. The dead player(s) identity is revealed and all other players are made aware of it. Afterwards, the next night starts, which begins with the seer picking a person to identify again.
+
+## Voting stages
+
+### Wolves
+
+### Seer
+
+### Voting during the day
+
+### Hunter
+
 
 ## Simple example game Kripke model analysis
 Milan?
@@ -51,6 +64,7 @@ Milan?
 
 ## Results analysis
 
+<!--
 ### GitHub PAGES INSTRUCTIONS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 ## Welcome to GitHub Pages
@@ -90,3 +104,4 @@ Your Pages site will use the layout and styles from the Jekyll theme you have se
 ### Support or Contact
 
 Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+-->
