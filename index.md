@@ -209,4 +209,6 @@ Milan?
 ## Results analysis
 -->
 
+Banner image taken from: <a href="https://coolwallpapers.me/xfsearch/alt/werewolf/">Here</a>
+
 <a href="#index" class="float">To Index</a>
