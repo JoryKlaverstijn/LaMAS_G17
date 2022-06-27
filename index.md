@@ -54,31 +54,31 @@ There are several different roles in the game. In the game there are multiple ro
 
 The werewolves attempt to kill off all the villagers. Each night they wake up to share information and to vote on who they want to kill.
 
-![Wolf Card](https://user-images.githubusercontent.com/63637256/175937346-ae7f6958-664e-4f1b-81be-b00c25e7bb6c.jpg){#fig:wolf}
+![Wolf Card](https://user-images.githubusercontent.com/63637256/175937346-ae7f6958-664e-4f1b-81be-b00c25e7bb6c.jpg "Wolf Card"){#fig:wolf}
 
 ### Seer
 
 The seer can view the role card of another player each night.
 
-![Seer Card](https://user-images.githubusercontent.com/63637256/175937378-e6d67781-fa29-4467-97c0-392f6424fd86.jpg){#fig:seer}
+![Seer Card](https://user-images.githubusercontent.com/63637256/175937378-e6d67781-fa29-4467-97c0-392f6424fd86.jpg "Seer Card"){#fig:seer}
 
 ### Little girl
 
 The little girl is allowed to spy on the werewolves during the werewolf phase. However she must be careful to avoid the werewolves detecting her.
 
-![Little Girl Card](https://user-images.githubusercontent.com/63637256/175937430-35bb2a8a-45ae-409d-ad66-7cb1e215ed17.jpg){#fig:littlegirl}
+![Little Girl Card](https://user-images.githubusercontent.com/63637256/175937430-35bb2a8a-45ae-409d-ad66-7cb1e215ed17.jpg "Little Girl Card"){#fig:littlegirl}
 
 ### Hunter
 
 When the hunter is killed, he is allowed to kill one other player of their choosing.
 
-![Hunter Card](https://user-images.githubusercontent.com/63637256/175937455-f6081ee2-158a-4d6f-92bd-4baa699530cd.jpg){#fig:hunter}
+![Hunter Card](https://user-images.githubusercontent.com/63637256/175937455-f6081ee2-158a-4d6f-92bd-4baa699530cd.jpg "Hunter Card"){#fig:hunter}
 
 ### Villager
 
 The ordinary villager has no extra actions that it can take, the only decisions it can make are related to voting during the day time.
 
-![Villager Card](https://user-images.githubusercontent.com/63637256/175937478-b5b236fb-b033-489e-a66a-be2edddf59c9.jpg){#fig:villager}
+![Villager Card](https://user-images.githubusercontent.com/63637256/175937478-b5b236fb-b033-489e-a66a-be2edddf59c9.jpg "Villager Card"){#fig:villager}
 
 ## Simplifications
 
@@ -136,15 +136,15 @@ The amount of possible worlds depends on the amount of players and the different
 
 To exemplify the amount of possible worlds, we will again take the example of having 2 wolves, 1 little girl, 1 seer, 1 hunter and 3 villagers. At the start of the game, after having been told their own identity, every player has the same amount of possible worlds, with relations to each other possible world. In our example this means that there are 168 different worlds in every players own kripke model; a world for every possible permutation of having 5 perceived villager roles, one perceived little girl role and 2 wolf roles. The amount of relations in one kripke model for one player is $$168^{2}$$ = 28224. The amount of relations in one kripke model for all players is $$168^{2} * 8$$ = 225792. There are then 8 of these models in the game, resulting in a total of $$168^{2} * 8^{2}$$ = 1806336 total relations. View @fig:possible_worlds1 to see one of the eight kripke models present at the start of the game, the player the model belongs to is a wolf called Joann.
 
-![Possible Worlds 1](https://user-images.githubusercontent.com/63637256/175941808-aaf77ca9-a8a9-47f3-832a-c093a3cd6a2e.png){#fig:possible_worlds1}
+![Possible Worlds 1](https://user-images.githubusercontent.com/63637256/175941808-aaf77ca9-a8a9-47f3-832a-c093a3cd6a2e.png "Possible Worlds: Case 1"){#fig:possible_worlds1}
 
 The amount of relations drastically reduces over the course of the game eventually resulting in a lot fewer options for the players. For example after Joann has been informed of the role of the other wolf immediately after being informed of her own role, the amount of possible worlds turns into only a few. View @fig:possible_worlds2 for an example.
 
-![Possible Worlds 2](https://user-images.githubusercontent.com/63637256/175941881-1ee89090-1e5e-4bc9-8c8f-e407a05f54ea.png){#fig:possible_worlds2}
+![Possible Worlds 2](https://user-images.githubusercontent.com/63637256/175941881-1ee89090-1e5e-4bc9-8c8f-e407a05f54ea.png "Possible Worlds: Case 2"){#fig:possible_worlds2}
 
 ## Game cycle
 
-![Flowchart stages](https://user-images.githubusercontent.com/63637256/175819749-4d057d47-68aa-476f-8f77-e0a5d448948f.jpeg){#fig:flowchart_stages}
+![Flowchart stages](https://user-images.githubusercontent.com/63637256/175819749-4d057d47-68aa-476f-8f77-e0a5d448948f.jpeg "Flowchart of stages"){#fig:flowchart_stages}
 
 ### Start
 
@@ -186,7 +186,7 @@ The little girl can decide to peek or not to discover the identity of the wolves
 
 The graphical user interface (GUI) consists of the players, each with their roles revealed, a reset button a next step button, a console to view the game progression and buttons numbering from 1 to the amount of players. View @fig:gui for an overview.
 
-![Graphical User Interface](https://user-images.githubusercontent.com/63637256/175936223-09cc176f-87d9-4b66-8eaf-3a8cc9137b7d.png){#fig:gui}
+![Graphical User Interface](https://user-images.githubusercontent.com/63637256/175936223-09cc176f-87d9-4b66-8eaf-3a8cc9137b7d.png "Graphical User Interface"){#fig:gui}
 
 In the overview, the voting process is visible for a game with 2 wolves, 1 little girl, 1 seer, 1 hunter and 3 villagers. Lyla, Rogelio and Kendra are shown to have one vote each. The purple lining is added to players that already voted. The little girl player Porsha is already dead; the console shows that she was killed after she peeked during the night voting phase, after which the wolves detected and killed her. The reset button will create a new game with new players, while the next step button will take the game into the next stage. The buttons numbered 1 to 8 can be used to view the kripke models of each player, refer back to the [Possible worlds and relations section](#possible-worlds-and-relations) for an explanation of the kripke models.
 
