@@ -51,6 +51,10 @@ class Game:
         self.state = State.START
         self.vote_total = 0
         self.correct_vote_total = 0
+        self.little_girl_detection_chance = 0.5
+
+    def set_little_girl_detection_chance(self, val):
+        self.little_girl_detection_chance = val
 
     def initialize_players(self):
         """
@@ -183,7 +187,7 @@ class Game:
         random.shuffle(self.players_to_vote)
         for player in self.players:
             if player.alive and player.role == Role.LITTLE_GIRL and not player.has_peeked:
-                if random.random() < 0.5:
+                if random.random() < self.little_girl_detection_chance:
                     self.state = State.LITTLE_GIRL_PEEKS
                     player.has_peeked = True
                     return
