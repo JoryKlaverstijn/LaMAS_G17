@@ -3,7 +3,3 @@ theme: jekyll-theme-cayman
 # Customize Jekyll theme
 title: The Werewolves of Millers Hollow
 description: Logical Aspects of Multi-Agent Systems
-
-parse:
-  myst_enable_extensions:
-    - html_image
