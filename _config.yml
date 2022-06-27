@@ -1,12 +1,4 @@
 theme: jekyll-theme-cayman
-plugins:
-  - jekyll-figure
-
-jekyll-figure:
-  paragraphs: false
-
-whitelist:
-  - jekyll-figure
 
 # Customize Jekyll theme
 title: The Werewolves of Millers Hollow
