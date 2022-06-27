@@ -8,4 +8,22 @@
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+    height: 35vw;
+    min-height: 300px;
+
+    .project-tagline {
+        font-size: 1.75rem;
+        font-weight: bold;
+        opacity: 1;
+    }
+
+    .btn {
+        color: black;
+        background-color: white;
+    }
+
+    .btn:hover {
+        color: black;
+        background-color: rgba(255,255,255,0.75);
+    }
 }
