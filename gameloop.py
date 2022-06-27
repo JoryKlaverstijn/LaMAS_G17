@@ -11,8 +11,8 @@ from Colors import *
 # HERE YOU CAN CHANGE THE AMOUNT OF PLAYERS PER ROLE!
 # There should at least be 1 wolf, and 1 non-wolf role
 roles = {
-    Role.WOLF: 2,
-    Role.VILLAGER: 1,
+    Role.WOLF: 1,
+    Role.VILLAGER: 7,
     Role.SEER: 1,
     Role.LITTLE_GIRL: 1,
     Role.HUNTER: 1

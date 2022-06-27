@@ -52,7 +52,6 @@ class Game:
         self.vote_total = 0
         self.correct_vote_total = 0
 
-
     def initialize_players(self):
         """
         Creates instances of players using the distribution of roles. Also gives each player a random name.

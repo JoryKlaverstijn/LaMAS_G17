@@ -3,6 +3,10 @@ import random
 
 
 class PlayerSeer(Player):
+    """
+    This is the class for the seer role.
+    The seer is allowed to choose someone to find out their identity.
+    """
     def __init__(self, name, role, roles, player_id):
         super().__init__(name, role, roles, player_id)
 

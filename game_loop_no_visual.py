@@ -13,9 +13,9 @@ N_GAMES = 100
 # There should at least be 1 wolf, and 1 non-wolf role
 roles = {
     Role.WOLF: 2,
-    Role.VILLAGER: 2,
-    Role.SEER: 2,
-    Role.LITTLE_GIRL: 0,
+    Role.VILLAGER: 1,
+    Role.SEER: 1,
+    Role.LITTLE_GIRL:1,
     Role.HUNTER: 1
 }
 assert sum(roles.values()) <= 8, 'Too many players (should be 8 or less)'

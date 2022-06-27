@@ -164,7 +164,7 @@ class MillerHollowModel:
                     color = 'black'
                 plt.text(x * 1.05 * offset,
                          y * 1.05 * offset,
-                         letter, rotation=degree + flip * 180, ha='center', va='center', color=color, fontsize=9)
+                         str(int(letter) + 1), rotation=degree + flip * 180, ha='center', va='center', color=color, fontsize=9)
 
         plt.xticks([])
         plt.yticks([])

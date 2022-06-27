@@ -2,6 +2,11 @@ from PlayerClasses.Player import Player
 import random
 
 class PlayerWolf(Player):
+    """
+    This is the class of the wolf.
+    The wolf has a different way of voting.
+    The wolf wants to kill all good roles, not other wolves.
+    """
     def __init__(self, name, role, roles, player_id):
         super().__init__(name, role, roles, player_id)
         self.km = None
