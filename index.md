@@ -20,8 +20,6 @@ The Werewolves of Millers Hollow is a social deduction game with multiple differ
 
 This report has the following structure: First the simplified version of the Werewolves of Millers Hollow that we used in our simulations is explained. After that we form a kripke model formalization of the game, we then explain about the game cycle and different types of voting, leading into an experimental setup, results and an analysis.
 
-<a name="index">
-
 ## Index
 
 - [Roles](#roles)
@@ -211,4 +209,4 @@ Milan?
 ## Results analysis
 -->
 
-<a href="index" class="float">To Index</a>
+<a href="#index" class="float">To Index</a>
