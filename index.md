@@ -16,7 +16,7 @@
 # The Werewolves of Millers Hollow
 <!--![example_game_image](https://user-images.githubusercontent.com/63673224/175807188-43e3595d-a05a-43f4-8b30-dd6a8869e262.png)-->
 
-The Werewolves of Millers Hollow is a social deduction game with multiple different player roles, in which the players attempt to figure out the roles of the other players. The role of each player is hidden from the other players and can only be revealed through a couple of game mechanics. The roles are divided up into wolves and villagers. The wolves attempt to kill off all the villagers to win the game, while the villagers attempt to kill all of the wolves to win the game. Each day a single game cycle takes place in which all phases of the game cycle are ran through. There are two voting moments in the game cycle: only the werewolves can vote on who they want to kill at night and all of the players can vote on who they want to kill during the day.
+The Werewolves of Millers Hollow is a social deduction game with multiple different player roles, in which the players attempt to figure out the roles of the other players. The role of each player is hidden from the other players and can only be revealed through a couple of game mechanics. The roles are divided up into wolves and villagers. The wolves attempt to kill off all the villagers to win the game, wheras the villagers attempt to kill all of the wolves to win the game. Each day a single game cycle takes place in which all phases of the game cycle are ran through. There are two voting moments in the game cycle: One moment at night at which only the wolfs can vote who to kill, and a moment during the day at which everyone can vote who to kill.
 
 This report has the following structure: First the simplified version of the Werewolves of Millers Hollow that we used in our simulations is explained. After that we form a kripke model formalization of the game, we then explain about the game cycle and different types of voting, leading into an experimental setup, results and an analysis.
 
@@ -48,7 +48,7 @@ This report has the following structure: First the simplified version of the Wer
 
 ## Roles
 
-There are several different roles in the game. In the game there are multiple roles that are not used in our simplified version of the game, these include: The thief, cupid, the lovers the witch and the mayor mechanic. Note that all roles are villagers, except the werewolves.
+There are several different roles in the game. In the game there are multiple roles that are not used in our simplified version of the game, these include: The thief, cupid, the lovers the witch and the mayor mechanic. Note that all roles are referred to as villagers, except the werewolves.
 
 ### Werewolves
 
@@ -58,25 +58,25 @@ The werewolves attempt to kill off all the villagers. Each night they wake up to
 
 ### Seer
 
-The seer can view the role card of another player each night.
+The seer can view the role card of another player each night. The seer is a specialized villager.
 
 ![Seer Card](https://user-images.githubusercontent.com/63637256/175937378-e6d67781-fa29-4467-97c0-392f6424fd86.jpg "Seer Card")
 
 ### Little girl
 
-The little girl is allowed to spy on the werewolves during the werewolf phase. However she must be careful to avoid the werewolves detecting her.
+The little girl is allowed to spy on the werewolves during the werewolf phase. However she must be careful to avoid the werewolves detecting her. The little girl is a specialized villager.
 
 ![Little Girl Card](https://user-images.githubusercontent.com/63637256/175937430-35bb2a8a-45ae-409d-ad66-7cb1e215ed17.jpg "Little Girl Card")
 
 ### Hunter
 
-When the hunter is killed, he is allowed to kill one other player of their choosing.
+When the hunter is killed, he is allowed to kill one other player of their choosing. The hunter is a specialized villager.
 
 ![Hunter Card](https://user-images.githubusercontent.com/63637256/175937455-f6081ee2-158a-4d6f-92bd-4baa699530cd.jpg "Hunter Card")
 
 ### Villager
 
-The ordinary villager has no extra actions that it can take, the only decisions it can make are related to voting during the day time.
+The ordinary villager has no extra actions that it can take, the only impact it has on the game is voting, discussing and staying alive.
 
 ![Villager Card](https://user-images.githubusercontent.com/63637256/175937478-b5b236fb-b033-489e-a66a-be2edddf59c9.jpg "Villager Card")
 
@@ -90,11 +90,11 @@ The primary simplification is related to the fact that there are too many roles 
 
 ### Perceived role reduction
 
-Another related simplification that was introduced was the roles that each player assigns to itself and the other players (its perceived state of reality). Normally this would include all the roles that are in the game, but since this makes the amount of possible worlds in the kripke models explode into the millions, we decided to approach it from a different angle. For the villagers it is sufficient to know if a person is a wolf or not, since they only care about removing wolves from the game. For the wolves it is important that they know who the villagers are, but also what type of villagers they are; they are more interested in removing some role types from the game earlier than other role types. These role types include the little girl and the seer. However, they only focus on the little girl since she is capable of revealing both of the wolves if she decides to peek. We decided to not include a perceived seer role since that came with more added complexity to the game. To sum up, there are two base roles that each player uses to determine the roles of other players, wolf or not wolf and little girl and not little girl. Combining these two options results in four possible combinations which the players used to determine the perceived roles of each player, with one of those being impossible (wolf and little girl).
+Another related simplification that was introduced was the roles that each player assigns to itself and the other players (its perceived state of reality). Normally this would include all the roles that are in the game, but since this makes the amount of possible relations in the kripke models explode into the millions, we decided to approach it from a different angle. For the villagers it is sufficient to know if a person is a wolf or not, since they only care about removing wolves from the game. For the wolves it is important that they know who the villagers are, but also what type of villagers they are; they are more interested in removing some role types from the game earlier than other role types. These role types include the little girl and the seer. However, they only focus on the little girl since she is capable of revealing both of the wolves if she decides to peek. We decided to not include a perceived seer role since that came with more added complexity to the game. To sum up, there are two facts that each player uses to determine the roles of other players, "is wolf" and "is little girl". For a wolf the former is true, but the latter is false. For a little girl the former is false but the latter is true. For any other role, both facts are false. It is not possible for both facts to be true for a player. This means that there are 3 possible perceived roles for a player.
 
 ### Communication
 
-A third simplification that we introduced is the inability of each player to manually deduce the roles of another player through their actions. Any player in the game is only able to receive information on the role of another player by explicitly receiving that information through a public announcement. In the game players are able to share information by public announcement with their fellow players, with those announcements always being truthful, e.g. the players can not lie. If this were to happen in a real world game, players would be able to deduce the roles of other players by them sharing information that is known to be truthful. For example if a player would share that they know who another player is, then that player would either be the seer or the little girl. But this type of role deduction is not present in our version of the game.
+A third simplification that we introduced is the inability of each player to manually deduce the roles of another player through their actions. Any player in the game is only able to receive information on the role of another player by explicitly receiving that information through a public announcement. In the game players are also able to share information by public announcement with their fellow players, with those announcements always being truthful, e.g. the players can not lie. An anouncement is always a player revealing the role of another player (players cannot reveal their own role as this would make the game too simple for the villagers). 
 
 ## Kripke Model Formalization
 
