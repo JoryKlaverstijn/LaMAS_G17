@@ -211,6 +211,4 @@ Milan?
 ## Results analysis
 -->
 
-<a href="index" class="float">
-    <p>To Index</p>
-</a>
+<a href="index" class="float">To Index</a>
