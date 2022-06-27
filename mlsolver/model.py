@@ -3,14 +3,16 @@ from mlsolver.formula import Atom, And, Not, Or, Box_a, Box_star
 from PlayerClasses.Roles import Role
 from itertools import permutations
 import numpy as np
-import matplotlib.pyplot as plt
+import matplotlib
 from matplotlib.lines import Line2D
+import matplotlib.pyplot as plt
+
 
 
 class MillerHollowModel:
     """
-    The kripke model definition of the Wolves of Miller Hollow game
-    Large parts of this class are modified versions/inspired by:
+    The kripke model definition of the Wolves of Miller Hollow game.
+    parts of this class are inspired by:
     https://github.com/MaxVinValk/AmongUsLAMAS/blob/main/mlsolver/model.py#L99
     """
     def __init__(self, players):
