@@ -184,16 +184,11 @@ The little girl can decide to peek or not to discover the identity of the wolves
 
 ## Graphical User Interface
 
-The graphical user interface (GUI) consists of the players, each with their roles revealed, a reset button a next step button, a console to view the game progression and buttons numbering from 1 to the amount of players. View [this figure](#gui) for an overview.
+The graphical user interface (GUI) consists of the players, each with their roles revealed, a reset button a next step button, a console to view the game progression and buttons numbering from 1 to the amount of players. View the figure below for an overview.
 
-<!-- ![Graphical User Interface](https://user-images.githubusercontent.com/63637256/175936223-09cc176f-87d9-4b66-8eaf-3a8cc9137b7d.png "Graphical User Interface") -->
-
-{% include image.html
-    srcabs="https://user-images.githubusercontent.com/63637256/175936223-09cc176f-87d9-4b66-8eaf-3a8cc9137b7d.png"
-    id="gui"
-    alt="Graphical User Interface"
-    caption="Graphical User Interface of the game"
-%}
+{% figure caption:"Graphical User Interface of the Game" %}
+![Graphical User Interface](https://user-images.githubusercontent.com/63637256/175936223-09cc176f-87d9-4b66-8eaf-3a8cc9137b7d.png "Graphical User Interface")
+{% endfigure %}
 
 In the overview, the voting process is visible for a game with 2 wolves, 1 little girl, 1 seer, 1 hunter and 3 villagers. Lyla, Rogelio and Kendra are shown to have one vote each. The purple lining is added to players that already voted. The little girl player Porsha is already dead; the console shows that she was killed after she peeked during the night voting phase, after which the wolves detected and killed her. The reset button will create a new game with new players, while the next step button will take the game into the next stage. The buttons numbered 1 to 8 can be used to view the kripke models of each player, refer back to the [Possible worlds and relations section](#possible-worlds-and-relations) for an explanation of the kripke models.
 
