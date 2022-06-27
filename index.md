@@ -134,18 +134,26 @@ The formal definition of the Kripke model M: $\langle S, \pi, R_{1}, ... , R_{m}
 
 The amount of possible worlds depends on the amount of players and the different roles that the players have. The total amount of worlds depends on the amount of permutations that are possible over the perceived roles in the game. If the total amount of worlds $$w$$ is known, the amount of players $$p$$ can be used to calculate the amount of relations for the kripke models that each player has. At the start of the game very world is connected to every other world, resulting in $$w^{2}$$ amount of relations for each player in the model. Since every player is modelled in one kripke model, the amount of relations for all players in one kripke model is $$w^{2} * p$$. There are as many models as there are players, resulting in a total of  $$w^{2} * p^{2}$$ relations over all kripke models.
 
-To exemplify the amount of possible worlds, we will again take the example of having 2 wolves, 1 little girl, 1 seer, 1 hunter and 3 villagers. At the start of the game, after having been told their own identity, every player has the same amount of possible worlds, with relations to each other possible world. In our example this means that there are 168 different worlds in every players own kripke model; a world for every possible permutation of having 5 perceived villager roles, one perceived little girl role and 2 wolf roles. The amount of relations in one kripke model for one player is $$168^{2}$$ = 28224. The amount of relations in one kripke model for all players is $$168^{2} * 8$$ = 225792. There are then 8 of these models in the game, resulting in a total of $$168^{2} * 8^{2}$$ = 1806336 total relations. View @fig:possible_worlds1 to see one of the eight kripke models present at the start of the game, the player the model belongs to is a wolf called Joann.
+To exemplify the amount of possible worlds, we will again take the example of having 2 wolves, 1 little girl, 1 seer, 1 hunter and 3 villagers. At the start of the game, after having been told their own identity, every player has the same amount of possible worlds, with relations to each other possible world. In our example this means that there are 168 different worlds in every players own kripke model; a world for every possible permutation of having 5 perceived villager roles, one perceived little girl role and 2 wolf roles. The amount of relations in one kripke model for one player is $$168^{2}$$ = 28224. The amount of relations in one kripke model for all players is $$168^{2} * 8$$ = 225792. There are then 8 of these models in the game, resulting in a total of $$168^{2} * 8^{2}$$ = 1806336 total relations. View [the figure below](#possible-worlds-1) to see one of the eight kripke models present at the start of the game, the player the model belongs to is a wolf called Joann.
 
-![Possible Worlds 1](https://user-images.githubusercontent.com/63637256/175941808-aaf77ca9-a8a9-47f3-832a-c093a3cd6a2e.png "Possible Worlds: Case 1")
+<figure>
+    <img id="possible-worlds-1" src="https://user-images.githubusercontent.com/63637256/175941808-aaf77ca9-a8a9-47f3-832a-c093a3cd6a2e.png" />
+    <figcaption>Figure: Possible Worlds - Case 1</figcaption>
+</figure>
 
-The amount of relations drastically reduces over the course of the game eventually resulting in a lot fewer options for the players. For example after Joann has been informed of the role of the other wolf immediately after being informed of her own role, the amount of possible worlds turns into only a few. View @fig:possible_worlds2 for an example.
+The amount of relations drastically reduces over the course of the game eventually resulting in a lot fewer options for the players. For example after Joann has been informed of the role of the other wolf immediately after being informed of her own role, the amount of possible worlds turns into only a few. View [the figure below](#possible-worlds-2)  for an example.
 
-![Possible Worlds 2](https://user-images.githubusercontent.com/63637256/175941881-1ee89090-1e5e-4bc9-8c8f-e407a05f54ea.png "Possible Worlds: Case 2")
+<figure>
+    <img id="possible-worlds-2" src="https://user-images.githubusercontent.com/63637256/175941881-1ee89090-1e5e-4bc9-8c8f-e407a05f54ea.png" />
+    <figcaption>Figure: Possible Worlds - Case 2</figcaption>
+</figure>
 
 ## Game cycle
 
-![Flowchart stages](https://user-images.githubusercontent.com/63637256/175819749-4d057d47-68aa-476f-8f77-e0a5d448948f.jpeg "Flowchart of stages")
-
+<figure>
+    <img id="flowchart-stages" src="https://user-images.githubusercontent.com/63637256/175819749-4d057d47-68aa-476f-8f77-e0a5d448948f.jpeg" />
+    <figcaption>Figure: Flowchart of Game Stages</figcaption>
+</figure>
 ### Start
 
 When the game starts, each player gets notified of their own identity. Next, stages start in which communication between the agents is possible, which always happens through thruthful public announcements to the kripke model of the agent receiving information. Each wolf gets sent a public announcement about the other wolves, entailing that each wolf now knows about all other wolves.
