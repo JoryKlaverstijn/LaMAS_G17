@@ -45,4 +45,12 @@
     border-radius:50px;
     text-align:center;
     box-shadow: 2px 2px 3px #999;
+
+    p {
+        margin: auto auto;
+    }
+
+    p:hover {
+        text-decoration: none;
+    }
 }
