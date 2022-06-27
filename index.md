@@ -18,7 +18,7 @@
 
 The Werewolves of Millers Hollow is a social deduction game with multiple different player roles, in which the players attempt to figure out the roles of the other players. The role of each player is hidden from the other players and can only be revealed through a couple of game mechanics. The roles are divided up into wolves and villagers. The wolves attempt to kill off all the villagers to win the game, while the villagers attempt to kill all of the wolves to win the game. Each day a single game cycle takes place in which all phases of the game cycle are ran through. There are two voting moments in the game cycle: only the werewolves can vote on who they want to kill at night and all of the players can vote on who they want to kill during the day.
 
-This report has the following structure: First the simplified version of the Werewolves of Millers Hollow that we used in our simulations is explained, afterwards, kripke model formalizations of the simulations and results from running the simulations are shown.
+This report has the following structure: First the simplified version of the Werewolves of Millers Hollow that we used in our simulations is explained. After that we form a kripke model formalization of the game, we then explain about the game cycle and different types of voting, leading into an experimental setup, results and an analysis.
 
 ## Roles
 There are several different roles in the game. In the game there are multiple roles that are not used in our simplified version of the game, these include: The thief, cupid, the lovers the witch and the mayor mechanic. Note that all roles are villagers, except the werewolves.
@@ -98,10 +98,16 @@ The formal definition of the Kripke model M: $\langle S, \pi, R_{1}, ... , R_{m}
 ### Possible worlds and relations
 The amount of possible worlds depends on the amount of players and the different roles that the players have. The total amount of worlds depends on the amount of permutations that are possible over the perceived roles in the game. If the total amount of worlds $$w$$ is known, the amount of players $$p$$ can be used to calculate the amount of relations for the kripke models that each player has. At the start of the game very world is connected to every other world, resulting in $$w^{2}$$ amount of relations for each player in the model. Since every player is modelled in one kripke model, the amount of relations for all players in one kripke model is $$w^{2} * p$$. There are as many models as there are players, resulting in a total of  $$w^{2} * p^{2}$$ relations over all kripke models.
 
-To exemplify the amount of possible worlds, we will again take the example of having 2 wolves, 1 little girl, 1 seer, 1 hunter and 3 villagers. At the start of the game, after having been told their own identity, every player has the same amount of possible worlds, with relations to each other possible world. In our example this means that there are 168 different worlds in every players own kripke model; a world for every possible permutation of having 5 perceived villager roles, one perceived little girl role and 2 wolf roles. The amount of relations in one kripke model for one player is $$168^{2}$$ = 28224. The amount of relations in one kripke model for all players is $$168^{2} * 8$$ = 225792. There are then 8 of these models in the game, resulting in a total of $$168^{2} * 8^{2}$$ = 1806336 total relations. The amount of relations drastically reduces over the course of the game eventually resulting in a lot fewer options for the players. View the figure down below to see one of the eight kripke models present at the start of the game, the player the model belongs to is a wolf called Heath.
+To exemplify the amount of possible worlds, we will again take the example of having 2 wolves, 1 little girl, 1 seer, 1 hunter and 3 villagers. At the start of the game, after having been told their own identity, every player has the same amount of possible worlds, with relations to each other possible world. In our example this means that there are 168 different worlds in every players own kripke model; a world for every possible permutation of having 5 perceived villager roles, one perceived little girl role and 2 wolf roles. The amount of relations in one kripke model for one player is $$168^{2}$$ = 28224. The amount of relations in one kripke model for all players is $$168^{2} * 8$$ = 225792. There are then 8 of these models in the game, resulting in a total of $$168^{2} * 8^{2}$$ = 1806336 total relations. View the figure down below to see one of the eight kripke models present at the start of the game, the player the model belongs to is a wolf called Joann.
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/63637256/175933950-69ff9691-28fa-48b2-aceb-200b3973f32d.png" />
+  <img src="https://user-images.githubusercontent.com/63637256/175941808-aaf77ca9-a8a9-47f3-832a-c093a3cd6a2e.png" />
+</p>
+
+The amount of relations drastically reduces over the course of the game eventually resulting in a lot fewer options for the players. For example after Joann has been informed of the role of the other wolf immediately after being informed of her own role, the amount of possible worlds turns into only a few. View the figure down below for an example.
+
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/63637256/175941881-1ee89090-1e5e-4bc9-8c8f-e407a05f54ea.png" />
 </p>
 
 ## Game cycle
