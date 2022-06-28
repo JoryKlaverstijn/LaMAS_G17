@@ -94,7 +94,11 @@ Another related simplification that was introduced was the roles that each playe
 
 ### Communication
 
-A third simplification that we introduced is the inability of each player to manually deduce the roles of another player through their actions. Any player in the game is only able to receive information on the role of another player by explicitly receiving that information through a public announcement. In the game players are also able to share information by public announcement with their fellow players, with those announcements always being truthful, e.g. the players can not lie. An anouncement is always a player revealing the role of another player (players cannot reveal their own role as this would make the game too simple for the villagers). 
+A third simplification that we introduced is the inability of each player to manually deduce the roles of another player through their actions. Any player in the game is only able to receive information on the role of another player by explicitly receiving that information through a public announcement. In the game players are also able to share information by public announcement with their fellow players, with those announcements always being truthful, e.g. the players can not lie. An anouncement is always a player revealing the role of another player (players cannot reveal their own role as this would make the game too simple for the villagers).
+
+## General kripke model implementation
+
+To be able to model the knowledge of all the players, we have chosen to create a separate Kripke model for each player. Each Kripke model then reflects the knowledge of a single player on the knowledge of all players, including their own knowledge. Each Kripke model has a set of possible worlds, where each world models a different possible permutation of the roles. For example, one world models the situation in which player 1 and player 2 are wolves, and the rest are villagers, and another world might model the situation in which player 3 and player 5 are wolves and the rest are villagers. Then in each Kripke model, the relations between the worlds for each player are modeled. The relations of the agent that the model belongs to reflects the knowledge of the agent on the game state. The relations of other agents in the Kripke model reflects what the agent thinks that the other agents know. This way we are able to use public anouncements to separately change the knowledge of agents on other agents' knowledge, and thus also use higher-order knowledge.
 
 ## Kripke Model Formalization
 
@@ -156,39 +160,43 @@ The amount of relations drastically reduces over the course of the game eventual
 </figure>
 ### Start
 
-When the game starts, each player gets notified of their own identity. Next, stages start in which communication between the agents is possible, which always happens through thruthful public announcements to the kripke model of the agent receiving information. Each wolf gets sent a public announcement about the other wolves, entailing that each wolf now knows about all other wolves.
+When the game starts, none of the players have any knowledge about their own role, or other players' roles. Each player gets notified of their own identity using a public anouncement. After this notofication, the amount of relations of the agent in their Kripke model decreases, and the amount of acessible worlds from the real world is limited to the worlds in which their own role is equal to their anounced role.
 
-### Night
+### Wolves identify each other
 
-The seer identifies a person to view the role of, again being sent a public announcement. The wolf voting stage then starts, in which the little girl has the option to peek or not, which the wolves have a chance of detecting if she does. If the little girl decides to peek, she figures out the identity of both of the wolves. If the little girl is also caught by the wolves, the wolves figure out the identity of the little girl and the little girl knows that the wolves know that she is the little girl. If the little girl does not decide to peek then no information is shared between the little girl and the wolves. Regardless of what happens, afterwards the wolves vote on who they want to kill, with a public announcement on who they killed being sent to all other players. If the dead persons turns out to be a hunter, then the hunter has to shoot another player; the process can cycle if there are multiple hunters in the game.
+After the players know their own role, the wolves are allowed to know who the other wolves are. This is done by a public anouncement in the Kripke model of all wolves. An anouncement is made to tell the agent that they now know the role of the other wolves, and an anouncement is made to tell the agent that the other wolves also knows their role.
 
-### Day and continuation
+### Seer identifies a chosen person
 
-Next the day voting stage starts, which starts with each player sharing aquired and not yet shared information. The little girl and the seer can share one piece of identity information, which they tell to the other players through public announcements. Next each player gets to vote on who they want to kill. Once again, a hunter killing cycle can occur based on who was killed. The dead player(s) identity is revealed and all other players are made aware of it. Afterwards, the next night starts, which begins with the seer picking a person to identify again.
+At this stage of the game, the seer is allowed to choose a person to identify. To choose who to identify, the seer uses their own Kripke model to choose a person that they want know valuable identity information of. The seer iterates through all other players, and checks for each player if the seer knows they are a wolf, and if the seer knows they are not a wolf. If neither is true, that means the seer still suspects the player to be a wolf, and wants to reveal this player's identity. If the seer does not suspect anyone, then it could still be useful to find out if there is another player of which the seer does not know the role. That way the seer gets to know who has a specialized good role, to be able to communicate it to other players later.
 
-## Selection (voting) stages
+### Little girl peaks
 
-At any type of selection stage, the best player to select is based on the role of the person who is doing the selection. The seer and the hunter perform a selection action, there is day and night voting and the little girl decides to peek or not. During day and night voting there is no communication between the different players in the game to coordinate their voting; they only use the information that they have themselves. If ties occur between the most amount of votes during day and night voting a selection between the tied options is made at random.
+The little girl can decide to peek or not to peek before the wolves vote. By default she has a 50% chance to peek at night to discover the identity of the wolves. If it turns out the girl has decided to peek, then a public anouncement is made in her Kripke model telling her that she knows who the wolves are.
 
-### Night voting
+### Little girl gets caught
 
-The wolves get to vote at night on who they want to kill. They have three options for voting based on priority. The first option is by using higher order knowledge to select a player that knows about them being the wolves, if the wolves know about this they will want to kill them first. If that type of knowledge is not present in the model of a wolf, then the second option is elected, which is voting out the little girl player if the wolves know the role of a little girl in the game. If that option is also not present, then the wolves will elect to kill anyone who is a villager; since the wolves know about each other, they will randomly elect one of the other players to kill.
+If the little girl has decided to peek, then afterwards there is a 50% chance that she will get caught. If she does get caught, that means the wolves will now know that she knows that they are the wolf. The wolves will also now know that she is the little girl. This means that in the upcoming voting round for the wolves, the little girl will surely get voted out.
 
-### Seer
+### Wolves vote for someone to die
 
-The seer gets to reveal the role of another player. Like the wolves, the seer also has three selection options based on priority. The first option is for the seer to select a player that he does not know not to be a wolf and hence is suspected of possibly being a wolf. If such an option exists, that option will be used first. If such an option does not exist, which can happen when identities of both wolves or all villagers are known, then the seer will reveal the role of a random player that it does not know the identity of yet. If that option is also not available, then the wolf will use the third option; selecting the role of someone that was already knwon to him.
+After the little has/has not peeked, the wolves get to vote to kill one person. The voting strategy of the wolf is based on their knowledge modeled in their Kripke model. First they iterate through every other player, and check in their Kripke model if they know that the other player knows they are a wolf, and that they know that the other player is not a wolf. If this is the case, they have been caught by a non-wolf player, and that player must be voted out immediatly. If this is not the case, they vote out anyone that they know is a little girl, this may be known through deduction of knowing other players' roles. Finally the wolves will kill anyone that they know is not a wolf.
 
-### Day voting
+### Dead person's identity is revealed
 
-During the day all the players in the game can vote on someone that they want to kill. For the wolves the voting occurs the same as in the night voting phase (they make the same choices), but this time they have to comply with the votes of others as well. For the villagers there are two options for voting. The first option is when a villager knows about the identity of a wolf, they will then vote to kill the wolf. If that information is not available, the villager will use the second option; voting for a player that they do not know not to be the wolf, being suspected of being a wolf. Note that the seer, little girl and hunter all classify as villagers in the day voting stage.
+When a person has died, everyone gets to know the identity of this person. An anouncement in every player's Kripke model is made that everyone knows the role of the killed person. This way the amount of relations in each Kripke model rapidly decreases as the game goes on. 
 
-### Hunter
+### Dead person is a hunter
 
-The hunter can select to kill someone if he has been killed. This selection is the same as the vote he would make during day voting.
+In the case that a hunter has died, the hunter is allowed to bring someone down with them. The choice of who the hunter wants to kill is explained in the "Everyone gets to vote" section.
 
-### Little Girl
+### Players discuss
 
-The little girl can decide to peek or not to discover the identity of the wolves in the game. By default she has a 50% chance to peek at night to discover the wolves. There is then also a default 50% chance that the wolves will detect her peeking. If the wolves detect her she will get killed on the same night. If the little girl has peeked during the game, then she will not peek again since she already knows the identity of the wolves.
+Now that players have died, the little girl has maybe seen who the wolves are, and the seer has identified a role, the players are allowed to discuss. The discussion works in turns, and every non-wolf player is able to use their own Kripke model to decide if they have any useful information to reveal. The first thing that a player checks in their Kripke model is if they know for some player if they are the wolf, and if they know that any of the other players does not know this information. If this is the case, they reveal the identity of the wolf. Second, a player checks if they know who is a little girl, and if anyone does not know this information. Finally they check if they know who is good, and if anyone does not know this information. If none of these apply, the player stays quiet. The reason to reveal the role of a good player is so that other players know that they should not vote this player out.
+
+### Everyone gets to vote
+
+After the discussion, all the players (wolf and non-wolf players) are allowed to vote someone out. The voting behaviour of the wolves has been explained in the "Wolves vote for someone to die" section. The non-wolf players check in their Kripke model if they know if someone is a wolf, in which case they vote for that person. Second, each non-wolf player votes for anyone who they still do not is not a wolf (suspect). There should always be someone who they know is the wolf, or who they suspect. After all the players have voted a single player out, the dead person's identity is again revealed, and the cycle is started over again, with a seer identifying someone's role. Note that the voting behaviour of the non-wolf players is also used for the hunter to determine who to bring down when they are killed.
 
 ## Graphical User Interface
 
