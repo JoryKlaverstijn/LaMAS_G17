@@ -201,18 +201,45 @@ The graphical user interface (GUI) consists of the players, each with their role
 
 In the overview, the voting process is visible for a game with 2 wolves, 1 little girl, 1 seer, 1 hunter and 3 villagers. Lyla, Rogelio and Kendra are shown to have one vote each. The purple lining is added to players that already voted. The little girl player Porsha is already dead; the console shows that she was killed after she peeked during the night voting phase, after which the wolves detected and killed her. The reset button will create a new game with new players, while the next step button will take the game into the next stage. The buttons numbered 1 to 8 can be used to view the kripke models of each player, refer back to the [Possible worlds and relations section](#possible-worlds-and-relations) for an explanation of the kripke models.
 
+## Results and experimental setups
+To test the knowledge types in our version of the game we tested several different scenarios to see how it would affect win percentages for the villagers and the wolves. We also recorded the day voting metrics of every game, with a correct vote being counted as a vote on a wolf.
+
+### Different role distributions
+To test if the types of roles have an effect on the win percentages and the amount of correct votes, a couple of different role distributions were ran. The role distributions are as follows:
+- Default: 2 wolves, 1 little girl, 1 seer, 1 hunter and 3 villagers.
+- More Seers: 2 wolves, 1 little girl, 2 seer, 1 hunter and 2 villagers.
+- More Hunters: 2 wolves, 1 little girl, 1 seer, 2 hunter and 2 villagers.
+- More Wolves: 3 wolves, 1 little girl, 3 seer, 1 hunter and 0 villagers.
+A 1000 games were ran for each role distribtion setup, resulting in [the following](#total_bar_graph_1000_iterations) win percentages. The amount of total, correct and % correct votes are also visible in the table below.
+
+<figure>
+    <img id="total_bar_graph_1000_iterations" src="https://user-images.githubusercontent.com/63637256/176162322-5710a1aa-f917-4486-b98c-e42e9e207f34.png" class = "center"/>
+    <figcaption>Figure: Different role distributions results over 1000 game iterations</figcaption>
+</figure>
+
+| Distribution  | Total votes | Correct votes | % Correct |
+| ------------- | ----------- | ------------- | --------- |
+| Default       | 8658        | 5672          | 65.51     |
+| More Seers    | 8593        | 6556          | 76.29     |
+| More Hunters  | 7656        | 4841          | 63.23     |
+| More Wolves   | 7456        | 7062          | 94.72     |
+
+
+### Little girl detection chance
+
+### Differentiating information exchange
+
+## Results analysis
+
+
+## Conclusion
+
 <!--
 ## Simple example game Kripke model analysis
 Milan?
 -->
 
-<!--
-## Experiments & Results
--->
 
-<!--
-## Results analysis
--->
 
 Banner image taken from: <a href="https://coolwallpapers.me/xfsearch/alt/werewolf/">Here</a>
 
