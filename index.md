@@ -145,7 +145,7 @@ To exemplify the amount of possible worlds, we will again take the example of ha
     <figcaption>Figure: Possible Worlds - Case 1</figcaption>
 </figure>
 
-The amount of relations drastically reduces over the course of the game eventually resulting in a lot fewer options for the players. For example after Joann has been informed of the role of the other wolf immediately after being informed of her own role, the amount of possible worlds turns into only a few. View [the figure below](#possible-worlds-2)  for an example.
+In this figure all the possible worlds are shown, with the relations of Joann. It can be seen that in the real world, player 1 and 2 are wolves, and player 7 is the little girl. The amount of relations drastically reduces over the course of the game eventually resulting in a lot fewer options for the players. For example after Joann has been informed of the role of the other wolf immediately after being informed of her own role, the amount of possible worlds turns into only a few. View [the figure below](#possible-worlds-2)  for an example.
 
 <figure>
     <img id="possible-worlds-2" src="https://user-images.githubusercontent.com/63637256/175941881-1ee89090-1e5e-4bc9-8c8f-e407a05f54ea.png" />
@@ -160,7 +160,7 @@ The amount of relations drastically reduces over the course of the game eventual
 </figure>
 ### Start
 
-When the game starts, none of the players have any knowledge about their own role, or other players' roles. Each player gets notified of their own identity using a public anouncement. After this notofication, the amount of relations of the agent in their Kripke model decreases, and the amount of acessible worlds from the real world is limited to the worlds in which their own role is equal to their anounced role.
+When the game starts, none of the players have any knowledge about their own role, or other players' roles. Each player gets notified of their own identity using a public anouncement. After this notification, the amount of relations of the agent in their Kripke model decreases, and the amount of acessible worlds from the real world is limited to the worlds in which their own role is equal to their anounced role.
 
 ### Wolves identify each other
 
@@ -170,7 +170,7 @@ After the players know their own role, the wolves are allowed to know who the ot
 
 At this stage of the game, the seer is allowed to choose a person to identify. To choose who to identify, the seer uses their own Kripke model to choose a person that they want know valuable identity information of. The seer iterates through all other players, and checks for each player if the seer knows they are a wolf, and if the seer knows they are not a wolf. If neither is true, that means the seer still suspects the player to be a wolf, and wants to reveal this player's identity. If the seer does not suspect anyone, then it could still be useful to find out if there is another player of which the seer does not know the role. That way the seer gets to know who has a specialized good role, to be able to communicate it to other players later.
 
-### Little girl peaks
+### Little girl peeks
 
 The little girl can decide to peek or not to peek before the wolves vote. By default she has a 50% chance to peek at night to discover the identity of the wolves. If it turns out the girl has decided to peek, then a public anouncement is made in her Kripke model telling her that she knows who the wolves are.
 
