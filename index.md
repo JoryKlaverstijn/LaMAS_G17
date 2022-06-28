@@ -62,7 +62,7 @@ There are several different roles in the game. In the game there are multiple ro
 
 ### Werewolves
 
-The werewolves attempt to kill off all the villagers. Each night they wake up to share information and to vote on who they want to kill.
+The werewolves attempt to kill off all the villagers. Each night they wake up to vote on who they want to kill.
 
 ![Wolf Card](https://user-images.githubusercontent.com/63637256/175937346-ae7f6958-664e-4f1b-81be-b00c25e7bb6c.jpg "Wolf Card")
 
@@ -80,7 +80,7 @@ The little girl is allowed to spy on the werewolves during the werewolf phase. H
 
 ### Hunter
 
-When the hunter is killed, he is allowed to kill one other player of their choosing. The hunter is a specialized villager.
+When the hunter is killed, they are allowed to kill one other player of their choosing. The hunter is a specialized villager.
 
 ![Hunter Card](https://user-images.githubusercontent.com/63637256/175937455-f6081ee2-158a-4d6f-92bd-4baa699530cd.jpg "Hunter Card")
 
@@ -92,7 +92,7 @@ The ordinary villager has no extra actions that it can take, the only impact it 
 
 ## Simplifications
 
-Due to the complexity of the game some simplifications were made to the original game.
+Due to the complexity of the game, some simplifications were made to the original game.
 
 ### Role and player reduction
 
@@ -100,11 +100,11 @@ The primary simplification is related to the fact that there are too many roles 
 
 ### Perceived role reduction
 
-Another related simplification that was introduced was the roles that each player assigns to itself and the other players (its perceived state of reality). Normally this would include all the roles that are in the game, but since this makes the amount of possible relations in the Kripke models explode into the millions, we decided to approach it from a different angle. For the villagers it is sufficient to know if a person is a wolf or not, since they only care about removing wolves from the game. For the wolves it is important that they know who the villagers are, but also what type of villagers they are; they are more interested in removing some role types from the game earlier than other role types. These role types include the little girl and the seer. However, they only focus on the little girl since she is capable of revealing both of the wolves if she decides to peek. We decided to not include a perceived seer role since that came with more added complexity to the game. To sum up, there are two facts that each player uses to determine the roles of other players, "is wolf" and "is little girl". For a wolf the former is true, but the latter is false. For a little girl the former is false but the latter is true. For any other role, both facts are false. It is not possible for both facts to be true for a player. This means that there are 3 possible perceived roles for a player.
+Another related simplification that was introduced, was the roles that each player assigns to itself and the other players (its perceived state of reality). Normally this would include all the roles that are in the game, but since this makes the amount of possible worlds and relations in the Kripke models explode into the millions, we decided to approach it from a different angle. For the villagers it is sufficient to know if a person is a wolf or not, since they only care about removing wolves from the game. For the wolves it is important that they know who the villagers are, but also what type of villagers they are; they are more interested in removing some role types from the game earlier than other role types. These role types include the little girl and the seer. However, they only focus on the little girl since she is capable of revealing both of the wolves if she decides to peek. We decided to not include a perceived seer role since that came with more added complexity to the game. To sum up, there are two facts that each player uses to determine the roles of other players, "is wolf" and "is little girl". For a wolf the former is true, but the latter is false. For a little girl the former is false but the latter is true. For any other role, both facts are false. It is not possible for both facts to be true for a player. This means that there are 3 possible perceived roles for a player.
 
 ### Communication
 
-A third simplification that we introduced is the inability of each player to manually deduce the roles of another player through their actions. Any player in the game is only able to receive information on the role of another player by explicitly receiving that information through a public announcement. In the game players are also able to share information by public announcement with their fellow players, with those announcements always being truthful, e.g. the players can not lie. An anouncement is always a player revealing the role of another player (players cannot reveal their own role as this would make the game too simple for the villagers).
+A third simplification that we introduced is the inability of each player to manually deduce the roles of another player through their actions. Any player in the game is only able to receive information on the role of another player by explicitly receiving that information through a public announcement. In the game, players are also able to share information by public announcement with their fellow players, with those announcements always being truthful, e.g. the players can not lie. An anouncement is always a player revealing the role of another player (players cannot reveal their own role as this would make the game too simple for the villagers). A player can only reveal the role of another player when they know the role of the other player.
 
 ## General Kripke model implementation
 
@@ -257,12 +257,33 @@ To test the effect of the wolves discovering the peeking of the little girl, the
 
 
 ### Differentiating information exchange
+We were also interested in finding out what effect of communication was on the win percentage. With our default setup, the agents reveal the identify of any wolves they know, and if they do not know any wolves, they reveal they identify of any good player they know. For this experiment we also try only revealing the identity of wolves, only revealing the identity of good players, or not revealing any information. 1000 Games were ran for each configuration, and the results are shown below.
 
-## Discussion
+<figure>
+    <img id="Communication_results" src="https://user-images.githubusercontent.com/63673224/176284536-2f3c0f40-eabc-4f06-a21d-6536bfd5f4d0.png" class = "center"/>
+    <figcaption>Figure: Villager wins over different little girl detection tresholds.</figcaption>
+</figure>
+
+<center>
+  
+| Configuration | Total votes | Correct votes | % Correct |
+| ------------- | ----------- | ------------- | --------- |
+| Reveal both   | 8658        | 5672          | 65.51     |
+| Reveal wolf   | 8593        | 6556          | 76.29     |
+| Reveal good   | 7656        | 4841          | 63.23     |
+| Reveal neither| 7456        | 7062          | 94.72     |
+  
+</center>
 
 ### Results analysis
 
-### Conclusion
+From the experiment with different role distributions we can conclude that more seers increases the win chance of the villagers, whereas more hunters does not seem to change the winrate by much. Adding more wolves and more seers also does not seem to change the winrate by much, but does make the game simpler for the villagers as they have a higher chance of voting correctly. Therefore we can conclude that seers, and their role of revealing the roles of wolf and non-wolf players, is important for the villagers to win. 
+
+From the experiment with all, partial, or no communication it can be concluded that revealing the identity of wolves has a large impact on the winrate of the villagers compared to not revealing any information. It is interesting to see that only revealing who is good also improves the winrate compared to not revealing any information. This means that revealing good roles helps the players in deducing who the wolves are, and is more helpful to the good players trying to deduce who the wolves are, than it is helpful for the wolves finding out who the little girl is. Overal, the communication of roles plays a big part in the succes of the villagers.
+
+## Discussion and conclusion
+
+In this project we have discovered how to implement the knowledge of a player using a Kripke model. We have found out how to update the knowledge of the players such that they have separate views of the game state. We have also learned how to use the knowledge stored in the Kripke models to let the players make decisions. The project has presented us with some difficulties when trying to implement higher-order knowledge, which was solved by implementing multiple Kripke models. If we were to continue on this project, we would be interested in trying to make the knowledge bases more efficient, such that the knowledge of all players could be stored in a single Kripke model and that the amount of relations would not be so high with just a handful of players.Currently the model only uses first- and second-order knowledge, but it would be interesting to use even higher order knowledge for decision making. In conclusion, this project was succesful in modeling the game of "Wolves of Miller Hollow", butthere are still some improvements to be made, such as using a single Kripke model instead of one for each agent. 
 
 ## References
 - The Banner image was taken from: <a href="https://coolwallpapers.me/xfsearch/alt/werewolf/">Here</a>
