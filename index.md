@@ -234,7 +234,6 @@ A 1000 games were ran for each role distribtion setup, resulting in [the followi
 | More Seers    | 8593        | 6556          | 76.29     |
 | More Hunters  | 7656        | 4841          | 63.23     |
 | More Wolves   | 7456        | 7062          | 94.72     |
-  </a>
   
 </center>
 
@@ -243,7 +242,7 @@ To test the effect of the wolves discovering the peeking of the little girl, the
 
 <figure>
     <img id="Little_girl_detection_res_1000_iterations" src="https://user-images.githubusercontent.com/63637256/176228329-1d8ec571-1d3c-4595-bdb1-0fc150ff24d3.png" class = "center"/>
-    <figcaption>Figure: Villager win percentages over different little girl detection tresholds.</figcaption>
+    <figcaption>Figure: Villager wins over different little girl detection tresholds.</figcaption>
 </figure>
 
 
