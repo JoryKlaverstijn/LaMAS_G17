@@ -152,21 +152,21 @@ To exemplify the amount of possible worlds, we will again take the example of ha
 
 <figure>
     <img id="possible-worlds-1" src="https://user-images.githubusercontent.com/63637256/175941808-aaf77ca9-a8a9-47f3-832a-c093a3cd6a2e.png" />
-    <figcaption>Figure: Possible Worlds - Case 1</figcaption>
+    <figcaption>Figure 1: Possible Worlds - Case 1</figcaption>
 </figure>
 
 In this figure all the possible worlds are shown, with the relations of Joann. It can be seen that in the real world, player 1 and 2 are wolves, and player 7 is the little girl. The amount of relations drastically reduces over the course of the game eventually resulting in a lot fewer options for the players. For example after Joann has been informed of the role of the other wolf immediately after being informed of her own role, the amount of possible worlds turns into only a few. View [the figure below](#possible-worlds-2)  for an example.
 
 <figure>
     <img id="possible-worlds-2" src="https://user-images.githubusercontent.com/63637256/175941881-1ee89090-1e5e-4bc9-8c8f-e407a05f54ea.png" />
-    <figcaption>Figure: Possible Worlds - Case 2</figcaption>
+    <figcaption>Figure 2: Possible Worlds - Case 2</figcaption>
 </figure>
 
 ## Game cycle
 
 <figure>
     <img id="flowchart-stages" src="https://user-images.githubusercontent.com/63637256/175819749-4d057d47-68aa-476f-8f77-e0a5d448948f.jpeg" />
-    <figcaption>Figure: Flowchart of Game Stages</figcaption>
+    <figcaption>Figure 3: Flowchart of Game Stages</figcaption>
 </figure>
 ### Start
 
@@ -214,7 +214,7 @@ The graphical user interface (GUI) consists of the players, each with their role
 
 <figure>
     <img id="gui" src="https://user-images.githubusercontent.com/63637256/175936223-09cc176f-87d9-4b66-8eaf-3a8cc9137b7d.png" />
-    <figcaption>Figure: Graphical User Interface of Game</figcaption>
+    <figcaption>Figure 4: Graphical User Interface of Game</figcaption>
 </figure>
 
 In the overview, the voting process is visible for a game with 2 wolves, 1 little girl, 1 seer, 1 hunter and 3 villagers. Lyla, Rogelio and Kendra are shown to have one vote each. The purple lining is added to players that already voted. The little girl player Porsha is already dead; the console shows that she was killed after she peeked during the night voting phase, after which the wolves detected and killed her. The reset button will create a new game with new players, while the next step button will take the game into the next stage. The buttons numbered 1 to 8 can be used to view the Kripke models of each player, refer back to the [Possible worlds and relations section](#possible-worlds-and-relations) for an explanation of the Kripke models.
@@ -233,7 +233,7 @@ A 1000 games were ran for each role distribtion setup, resulting in [the followi
 
 <figure>
     <img id="total_bar_graph_1000_iterations" src="https://user-images.githubusercontent.com/63637256/176162322-5710a1aa-f917-4486-b98c-e42e9e207f34.png" class = "center"/>
-    <figcaption>Figure: Different role distributions results over 1000 game iterations</figcaption>
+    <figcaption>Figure 5: Different role distributions results over 1000 game iterations</figcaption>
 </figure>
 
 <center>
@@ -247,31 +247,22 @@ A 1000 games were ran for each role distribtion setup, resulting in [the followi
   
 </center>
 
-### Little girl detection chance
-To test the effect of the wolves discovering the peeking of the little girl, the little girl detection chance was varied from 10% to 100%. The results are visible in [the following](#Little_girl_detection_res_1000_iterations) graph. The results are averaged over 100 games at each 10% increase.
-
-<figure>
-    <img id="Little_girl_detection_res_1000_iterations" src="https://user-images.githubusercontent.com/63637256/176228329-1d8ec571-1d3c-4595-bdb1-0fc150ff24d3.png" class = "center"/>
-    <figcaption>Figure: Villager wins over different little girl detection tresholds.</figcaption>
-</figure>
-
-
 ### Differentiating information exchange
 We were also interested in finding out what effect of communication was on the win percentage. With our default setup, the agents reveal the identify of any wolves they know, and if they do not know any wolves, they reveal they identify of any good player they know. For this experiment we also try only revealing the identity of wolves, only revealing the identity of good players, or not revealing any information. 1000 Games were ran for each configuration, and the results are shown below.
 
 <figure>
     <img id="Communication_results" src="https://user-images.githubusercontent.com/63673224/176284536-2f3c0f40-eabc-4f06-a21d-6536bfd5f4d0.png" class = "center"/>
-    <figcaption>Figure: Villager wins over different little girl detection tresholds.</figcaption>
+    <figcaption>Figure 6: Villager wins over different little girl detection tresholds.</figcaption>
 </figure>
 
 <center>
   
 | Configuration | Total votes | Correct votes | % Correct |
 | ------------- | ----------- | ------------- | --------- |
-| Reveal both   | 8658        | 5672          | 65.51     |
-| Reveal wolf   | 8593        | 6556          | 76.29     |
-| Reveal good   | 7656        | 4841          | 63.23     |
-| Reveal neither| 7456        | 7062          | 94.72     |
+| Reveal both   | 5772        | 8610          | 67.04     |
+| Reveal wolf   | 5545        | 8601          | 64.47     |
+| Reveal good   | 4359        | 8560          | 50.92     |
+| Reveal neither| 4082        | 8545          | 47.77     |
   
 </center>
 
@@ -283,7 +274,7 @@ From the experiment with all, partial, or no communication it can be concluded t
 
 ## Discussion and conclusion
 
-In this project we have discovered how to implement the knowledge of a player using a Kripke model. We have found out how to update the knowledge of the players such that they have separate views of the game state. We have also learned how to use the knowledge stored in the Kripke models to let the players make decisions. The project has presented us with some difficulties when trying to implement higher-order knowledge, which was solved by implementing multiple Kripke models. If we were to continue on this project, we would be interested in trying to make the knowledge bases more efficient, such that the knowledge of all players could be stored in a single Kripke model and that the amount of relations would not be so high with just a handful of players.Currently the model only uses first- and second-order knowledge, but it would be interesting to use even higher order knowledge for decision making. In conclusion, this project was succesful in modeling the game of "Wolves of Miller Hollow", butthere are still some improvements to be made, such as using a single Kripke model instead of one for each agent. 
+In this project we have discovered how to implement the knowledge of a player using a Kripke model. We have found out how to update the knowledge of the players such that they have separate views of the game state. We have also learned how to use the knowledge stored in the Kripke models to let the players make decisions. The project has presented us with some difficulties when trying to implement higher-order knowledge, which was solved by implementing multiple Kripke models. If we were to continue on this project, we would be interested in trying to implement the knowledge in a different way, such as storing all the knowledge in a single Kripke model. We would also look into how we could model the knowledge of more players without having the amount of players explode into the milions. Currently the model only uses first- and second-order knowledge, but it would be interesting to use even higher order knowledge for decision making. In conclusion, this project was succesful in modeling the game of "Wolves of Miller Hollow", but there are still some improvements to be made, such as using a single Kripke model instead of one for each agent. 
 
 ## References
 - The Banner image was taken from: <a href="https://coolwallpapers.me/xfsearch/alt/werewolf/">Here</a>
