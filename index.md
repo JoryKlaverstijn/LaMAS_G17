@@ -234,16 +234,40 @@ A 1000 games were ran for each role distribtion setup, resulting in [the followi
     <figcaption>Figure 5: Different role distributions results over 1000 game iterations</figcaption>
 </figure>
 
-<div align="center">
-
-| Distribution  | Total votes | Correct votes | % Correct |
-| ------------- | ----------- | ------------- | --------- |
-| Default       | 8658        | 5672          | 65.51     |
-| More Seers    | 8593        | 6556          | 76.29     |
-| More Hunters  | 7656        | 4841          | 63.23     |
-| More Wolves   | 7456        | 7062          | 94.72     |
-
-</div>
+<center>
+    <table>
+        <tr>
+            <th>Distribution</th>
+            <th>Total votes</th>
+            <th>Correct votes</th>
+            <th>% Correct</th>
+        </tr>
+        <tr>
+            <td>Default</td>
+            <td>8658</td>
+            <td>5672</td>
+            <td>65.51</td>
+        </tr>
+        <tr>
+            <td>More Seers</td>
+            <td>8593</td>
+            <td>6556</td>
+            <td>76.29</td>
+        </tr>
+        <tr>
+            <td>More Hunters</td>
+            <td>7656</td>
+            <td>4841</td>
+            <td>63.23</td>
+        </tr>
+        <tr>
+            <td>More Wolves</td>
+            <td>7456</td>
+            <td>7062</td>
+            <td>94.72</td>
+        </tr>
+    </table>
+</center>
 
 ### Differentiating information exchange
 We were also interested in finding out what effect of communication was on the win percentage. With our default setup, the agents reveal the identity of any wolves they know, and if they do not know any wolves, they reveal the identity of any good player they know. For this experiment we also tried only revealing the identity of wolves, only revealing the identity of good players, or not revealing any information. 1000 Games were simulated for each configuration, and the results are shown in [the figure below](#Communication_results) with the table below containing the voting information.
@@ -253,16 +277,40 @@ We were also interested in finding out what effect of communication was on the w
     <figcaption>Figure 6: Villager wins over different little girl detection tresholds.</figcaption>
 </figure>
 
-<div align="center">
-
-| Configuration | Total votes | Correct votes | % Correct |
-| ------------- | ----------- | ------------- | --------- |
-| Reveal both   | 5772        | 8610          | 67.04     |
-| Reveal wolf   | 5545        | 8601          | 64.47     |
-| Reveal good   | 4359        | 8560          | 50.92     |
-| Reveal neither| 4082        | 8545          | 47.77     |
-
-</div>
+<center>
+    <table>
+        <tr>
+            <th>Configuration</th>
+            <th>Total votes</th>
+            <th>Correct votes</th>
+            <th>% Correct</th>
+        </tr>
+        <tr>
+            <td>Reveal wolf</td>
+            <td>5772</td>
+            <td>8610</td>
+            <td>67.04</td>
+        </tr>
+        <tr>
+            <td>Reveal good</td>
+            <td>5545</td>
+            <td>8601</td>
+            <td>64.47</td>
+        </tr>
+        <tr>
+            <td>Reveal neither</td>
+            <td>4359</td>
+            <td>8560</td>
+            <td>50.92</td>
+        </tr>
+        <tr>
+            <td>Reveal both</td>
+            <td>4082</td>
+            <td>8545</td>
+            <td>47.77</td>
+        </tr>
+    </table>
+</center>
 
 ### Results analysis
 
