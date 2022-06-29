@@ -234,16 +234,16 @@ A 1000 games were ran for each role distribtion setup, resulting in [the followi
     <figcaption>Figure 5: Different role distributions results over 1000 game iterations</figcaption>
 </figure>
 
-<center>
-  
+<div align="center">
+
 | Distribution  | Total votes | Correct votes | % Correct |
 | ------------- | ----------- | ------------- | --------- |
 | Default       | 8658        | 5672          | 65.51     |
 | More Seers    | 8593        | 6556          | 76.29     |
 | More Hunters  | 7656        | 4841          | 63.23     |
 | More Wolves   | 7456        | 7062          | 94.72     |
-  
-</center>
+
+</div>
 
 ### Differentiating information exchange
 We were also interested in finding out what effect of communication was on the win percentage. With our default setup, the agents reveal the identity of any wolves they know, and if they do not know any wolves, they reveal the identity of any good player they know. For this experiment we also tried only revealing the identity of wolves, only revealing the identity of good players, or not revealing any information. 1000 Games were simulated for each configuration, and the results are shown in [the figure below](#Communication_results) with the table below containing the voting information.
@@ -253,32 +253,31 @@ We were also interested in finding out what effect of communication was on the w
     <figcaption>Figure 6: Villager wins over different little girl detection tresholds.</figcaption>
 </figure>
 
-<center>
-  
+<div align="center">
+
 | Configuration | Total votes | Correct votes | % Correct |
 | ------------- | ----------- | ------------- | --------- |
 | Reveal both   | 5772        | 8610          | 67.04     |
 | Reveal wolf   | 5545        | 8601          | 64.47     |
 | Reveal good   | 4359        | 8560          | 50.92     |
 | Reveal neither| 4082        | 8545          | 47.77     |
-  
-</center>
+
+</div>
 
 ### Results analysis
 
-From the experiment with different role distributions, we can conclude that more seers drastically increases the win chance of the villagers, whereas adding more hunters does not seem to change the win rate by much. Adding more wolves while also adding more seers balances out the game more, giving similar results to the default setup. However, doing so does lead to a simpler game for the villagers, as they have a higher chance of voting correctly. Therefore, we can conclude that seers, and their role of revealing the roles of wolf and non-wolf players, is very important for the villagers to win. 
+From the experiment with different role distributions, we can conclude that more seers drastically increases the win chance of the villagers, whereas adding more hunters does not seem to change the win rate by much. Adding more wolves while also adding more seers balances out the game more, giving similar results to the default setup. However, doing so does lead to a simpler game for the villagers, as they have a higher chance of voting correctly. Therefore, we can conclude that seers, and their role of revealing the roles of wolf and non-wolf players, is very important for the villagers to win.
 
 From the experiment with all, partial, or no communication it can be concluded that revealing the identity of wolves has a large impact on the win rate of the villagers compared to not revealing any information. It is interesting to see that only revealing who is good also improves the win rate compared to not revealing any information. This means that revealing good roles helps the players in deducing who the wolves are, and is more helpful to the good players trying to deduce who the wolves are, than it is helpful for the wolves finding out who the little girl is. Overall, the communication of roles plays a big part in the success of the villagers.
 
 ## Discussion and conclusion
 
-In this project, we have discovered how to implement the knowledge of a player using a Kripke model. We have found out how to update the knowledge of the players such that they have separate views of the game state. We have also learned how to use the knowledge stored in the Kripke models to let the players make decisions. The project has presented us with some difficulties when trying to implement higher-order knowledge, which was solved by implementing multiple Kripke models. If we were to continue on this project, we would be interested in trying to implement the knowledge in a different way, such as storing all the knowledge in a single Kripke model. We would also look into how we could model the knowledge of more players without having the amount of player relations explode into the millions. The model we implemented only uses first- and second-order knowledge, but it would be interesting to use even higher order knowledge for decision-making. In conclusion, this project was successful in modeling the game of "Wolves of Miller Hollow", but there are still some improvements to be made, such as using a single Kripke model instead of one for each agent. 
-
+In this project, we have discovered how to implement the knowledge of a player using a Kripke model. We have found out how to update the knowledge of the players such that they have separate views of the game state. We have also learned how to use the knowledge stored in the Kripke models to let the players make decisions. The project has presented us with some difficulties when trying to implement higher-order knowledge, which was solved by implementing multiple Kripke models. If we were to continue on this project, we would be interested in trying to implement the knowledge in a different way, such as storing all the knowledge in a single Kripke model. We would also look into how we could model the knowledge of more players without having the amount of player relations explode into the millions. The model we implemented only uses first- and second-order knowledge, but it would be interesting to use even higher order knowledge for decision-making. In conclusion, this project was successful in modeling the game of "Wolves of Miller Hollow", but there are still some improvements to be made, such as using a single Kripke model instead of one for each agent.
 
 <!-- why does this not work -->
 
 ## References
-- The Banner image was taken from: <a href="https://coolwallpapers.me/xfsearch/alt/werewolf/">Here</a>
+- The Banner image was taken from: <a href="https://coolwallpapers.me/xfsearch/alt/werewolf/">here</a>
 - BOK unit 1 and BOK unit 2 from the course materials.
 - Van Ditmarsch, H., van Der Hoek, W., & Kooi, B. (2007). Dynamic epistemic logic (Vol. 337). Springer Science & Business Media.
 
