@@ -42,7 +42,7 @@ This report has the following structure: First the simplified version of the Wer
     - [Little girl peeks](#little-girl-peeks)
     - [Little girl gets caught](#little-girl-gets-caught)
     - [Wolves vote for someone to die](#wolves-vote-for-someone-to-die)
-    - [Dead person's identity is revealed](#dead-person's-identity-is-revealed)
+    - [Dead persons identity is revealed](#dead-persons-identity-is-revealed)
     - [Dead person is a hunter](#dead-person-is-a-hunter)
     - [Players discuss](#players-discuss)
     - [Everyone gets to vote](#everyone-gets-to-vote)
@@ -190,7 +190,7 @@ If the little girl has decided to peek, then afterwards there is a 50% chance th
 
 After the little has or has not peeked, the wolves get to vote to kill one person. The voting strategy of the wolf is based on their knowledge modeled in their Kripke model. First they iterate through every other player, and check in their Kripke model if they know that the other player knows they are a wolf, and that they know that the other player is not a wolf. They base this most important option on the higher order knowledge present in their Kripke model. If this is the case, they have been caught by a non-wolf player and that player must be voted out immediately. If this is not the case, they instead vote out anyone that they know is a little girl, which may be known through deduction of knowing other players' roles. Finally, if no information about the little girl is known either, the wolves will kill anyone that they know is not a wolf.
 
-### Dead person's identity is revealed
+### Dead persons identity is revealed
 
 When a person has died, everyone gets to know the identity of this person. An announcement in every players' Kripke model is made informing everyone of the role of the killed person. In doing so, the amount of relations in each Kripke model rapidly decreases as the game goes on. 
 
