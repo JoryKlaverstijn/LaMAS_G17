@@ -146,14 +146,14 @@ The formal definition of the Kripke model M: $\langle S, \pi, R_{1}, ... , R_{m}
 
 The amount of possible worlds depends on the amount of players and the different roles that the players have. The total amount of worlds depends on the amount of permutations that are possible over the perceived roles in the game. If the total amount of worlds $$w$$ is known, the amount of players $$p$$ can be used to calculate the amount of relations for the Kripke models that each player has. At the start of the game, every world is connected to every other world, resulting in $$w^{2}$$ amount of relations for each player in the model. Since every player is modeled in one Kripke model, the amount of relations for all players in one Kripke model is $$w^{2} * p$$. There are as many models as there are players, resulting in a total of  $$w^{2} * p^{2}$$ relations over all Kripke models.
 
-To exemplify the amount of possible worlds, we will again take the example of having 2 wolves, 1 little girl, 1 seer, 1 hunter and 3 villagers in a game. At the start of the game, after having been told their own identity, every player has the same amount of possible worlds, with relations to each other possible world. In our example this means that there are 168 different worlds in every players' own Kripke model; a world for every possible permutation of having 5 perceived villager roles, one perceived little girl role and 2 wolf roles. The amount of relations in one Kripke model for one player is $$168^{2}$$ = 28224. The amount of relations in one Kripke model for all players is $$168^{2} * 8$$ = 225792. There are then 8 of these models in the game, resulting in a total of $$168^{2} * 8^{2}$$ = 1806336 total relations. View [the figure below](#possible-worlds-1) to see one of the eight Kripke models present at the start of the game, the player the model belongs to is a wolf called Joann.
+To exemplify the amount of possible worlds, we will take the example of having 2 wolves, 1 little girl, 1 seer, 1 hunter and 3 villagers in a game. At the start of the game, after having been told their own identity, every player has the same amount of possible worlds, with relations to each other possible world. In our example this means that there are 168 different worlds in every players' own Kripke model; a world for every possible permutation of having 5 perceived villager roles, one perceived little girl role and 2 wolf roles. The amount of relations in one Kripke model for one player is $$168^{2}$$ = 28224. The amount of relations in one Kripke model for all players is $$168^{2} * 8$$ = 225792. There are then 8 of these models in the game, resulting in a total of $$168^{2} * 8^{2}$$ = 1806336 total relations. View [Figure 1](#possible-worlds-1) to see one of the eight Kripke models present at the start of the game, the player the model belongs to is a wolf called Joann.
 
 <figure>
     <img id="possible-worlds-1" src="https://user-images.githubusercontent.com/63637256/175941808-aaf77ca9-a8a9-47f3-832a-c093a3cd6a2e.png" />
     <figcaption>Figure 1: Possible Worlds - Case 1</figcaption>
 </figure>
 
-In [this figure](#possible-worlds-1), all the possible worlds are shown, with the relations of Joann. It can be seen that in the real world, player 1 and 2 are wolves, and player 7 is the little girl. The amount of relations drastically reduces over the course of the game, eventually resulting in a lot fewer options for the players. For example, after Joann has been informed of the role of the other wolf immediately after being informed of her own role, the amount of possible worlds turns into only a few. View [the figure below](#possible-worlds-2)  for an example.
+In [this figure](#possible-worlds-1), all the possible worlds are shown, with the relations of Joann. It can be seen that in the real world, player 1 and 2 are wolves, and player 7 is the little girl. The amount of relations drastically reduces over the course of the game, eventually resulting in a lot fewer options for the players. For example, after Joann has been informed of the role of the other wolf immediately after being informed of her own role, the amount of possible worlds turns into only a few. View [Figure 2](#possible-worlds-2)  for an example.
 
 <figure>
     <img id="possible-worlds-2" src="https://user-images.githubusercontent.com/63637256/175941881-1ee89090-1e5e-4bc9-8c8f-e407a05f54ea.png" />
@@ -166,6 +166,7 @@ In [this figure](#possible-worlds-1), all the possible worlds are shown, with th
     <img id="flowchart-stages" src="https://user-images.githubusercontent.com/63637256/175819749-4d057d47-68aa-476f-8f77-e0a5d448948f.jpeg" />
     <figcaption>Figure 3: Flowchart of Game Stages</figcaption>
 </figure>
+
 ### Start
 
 When the game starts, none of the players have any knowledge about their own role, or other players' roles. Each player gets notified of their own identity using a public announcement. After this notification, the amount of relations of the player in their Kripke model decreases, and the amount of accessible worlds from the real world is limited to the worlds in which their own role is equal to their announced role.
@@ -188,7 +189,7 @@ If the little girl has decided to peek, then afterwards there is a 50% chance th
 
 ### Wolves vote for someone to die
 
-After the little has or has not peeked, the wolves get to vote to kill one person. The voting strategy of the wolf is based on their knowledge modeled in their Kripke model. First they iterate through every other player, and check in their Kripke model if they know that the other player knows they are a wolf, and that they know that the other player is not a wolf. They base this most important option on the higher order knowledge present in their Kripke model. If this is the case, they have been caught by a non-wolf player and that player must be voted out immediately. If this is not the case, they instead vote out anyone that they know is a little girl, which may be known through deduction of knowing other players' roles. Finally, if no information about the little girl is known either, the wolves will kill anyone that they know is not a wolf.
+After the little girl has or has not peeked, the wolves get to vote to kill one person. The voting strategy of the wolf is based on their knowledge modeled in their Kripke model. First they iterate through every other player, and check in their Kripke model if they know that the other player knows they are a wolf, and that they know that the other player is not a wolf. They base this most important option on the higher order knowledge present in their Kripke model. If this is the case, they have been caught by a non-wolf player and that player must be voted out immediately. If this is not the case, they instead vote out anyone that they know is a little girl, which may be known through deduction of knowing other players' roles. Finally, if no information about the little girl is known either, the wolves will kill anyone that they know is not a wolf.
 
 ### Dead persons identity is revealed
 
@@ -208,14 +209,14 @@ After the discussion, all the players are allowed to vote someone out. The votin
 
 ## Graphical User Interface
 
-The graphical user interface (GUI) consists of the players, each with their roles revealed, a reset button, a next step button, a console to view the game progression and buttons numbering from 1 to the amount of players. View [the figure below](#gui) for an overview.
+The graphical user interface (GUI) consists of the players, each with their roles revealed, a reset button, a next step button, a console to view the game progression and buttons numbering from 1 to the amount of players. View [Figure 4](#gui) for an overview.
 
 <figure>
     <img id="gui" src="https://user-images.githubusercontent.com/63637256/175936223-09cc176f-87d9-4b66-8eaf-3a8cc9137b7d.png" />
     <figcaption>Figure 4: Graphical User Interface of Game</figcaption>
 </figure>
 
-In the overview, a day voting process is visible for a game with 2 wolves, 1 little girl, 1 seer, 1 hunter and 3 villagers. Lyla, Rogelio and Kendra are shown to have one vote each. The purple lining is added to players that already voted. The little girl player Porsha is already dead; the console shows that she was killed after she peeked during the night voting phase, after which the wolves detected and killed her. The reset button will create a new game with new players, while the next step button will take the game into the next stage. The buttons numbered 1 to 8 can be used to view the Kripke models of each player, refer back to the [Possible worlds and relations section](#possible-worlds-and-relations) for an explanation of the Kripke models.
+In the overview, a day voting process is visible for a game with 2 wolves, 1 little girl, 1 seer, 1 hunter and 3 villagers. Lyla, Rogelio and Kendra are shown to have one vote each. The purple lining is added to players that already voted. The little girl player Porsha is already dead; the console shows that she was killed after she peeked during the night voting phase, after which the wolves detected and killed her. The reset button will create a new game with new players, while the next step button will take the game into the next stage. The buttons numbered 1 to 8 can be used to view the Kripke models of each player, refer back to the [possible worlds and relations section](#possible-worlds-and-relations) for an explanation of the Kripke models.
 
 ## Results and experimental setups
 To test the knowledge types in our version of the game, we tested a few different scenarios to see how it would affect win percentages for the villagers and the wolves. We also recorded the day voting metrics of every game, with a correct vote being counted as a vote on a wolf by a villager.
@@ -227,7 +228,7 @@ To test if the types of roles have an effect on the win percentages and the amou
 - More Hunters: 2 wolves, 1 little girl, 1 seer, 2 hunter and 2 villagers.
 - More Wolves: 3 wolves, 1 little girl, 3 seer, 1 hunter and 0 villagers.
 
-A 1000 games were ran for each role distribtion setup, resulting in [the following](#total_bar_graph_1000_iterations) win percentages. The amount of total, correct and % correct votes are also visible in the table below.
+A 1000 games were ran for each role distribtion setup, resulting in the following [(Figure 5)](#total_bar_graph_1000_iterations) win percentages. The amount of total, correct and % correct votes are also visible in the table below.
 
 <figure>
     <img id="total_bar_graph_1000_iterations" src="https://user-images.githubusercontent.com/63637256/176162322-5710a1aa-f917-4486-b98c-e42e9e207f34.png" class = "center"/>
@@ -270,7 +271,7 @@ A 1000 games were ran for each role distribtion setup, resulting in [the followi
 </center>
 
 ### Differentiating information exchange
-We were also interested in finding out what effect of communication was on the win percentage. With our default setup, the agents reveal the identity of any wolves they know, and if they do not know any wolves, they reveal the identity of any good player they know. For this experiment we also tried only revealing the identity of wolves, only revealing the identity of good players, or not revealing any information. 1000 Games were simulated for each configuration, and the results are shown in [the figure below](#Communication_results) with the table below containing the voting information.
+We were also interested in finding out what effect of communication was on the win percentage. With our default setup, the agents reveal the identity of any wolves they know, and if they do not know any wolves, they reveal the identity of any good player they know. For this experiment we also tried only revealing the identity of wolves, only revealing the identity of good players, or not revealing any information. 1000 Games were simulated for each configuration, and the results are shown in [Figure 6](#Communication_results) with the table below containing the voting information.
 
 <figure>
     <img id="Communication_results" src="https://user-images.githubusercontent.com/63673224/176284536-2f3c0f40-eabc-4f06-a21d-6536bfd5f4d0.png" class = "center"/>
