@@ -274,6 +274,9 @@ From the experiment with all, partial, or no communication it can be concluded t
 
 In this project, we have discovered how to implement the knowledge of a player using a Kripke model. We have found out how to update the knowledge of the players such that they have separate views of the game state. We have also learned how to use the knowledge stored in the Kripke models to let the players make decisions. The project has presented us with some difficulties when trying to implement higher-order knowledge, which was solved by implementing multiple Kripke models. If we were to continue on this project, we would be interested in trying to implement the knowledge in a different way, such as storing all the knowledge in a single Kripke model. We would also look into how we could model the knowledge of more players without having the amount of player relations explode into the millions. The model we implemented only uses first- and second-order knowledge, but it would be interesting to use even higher order knowledge for decision-making. In conclusion, this project was successful in modeling the game of "Wolves of Miller Hollow", but there are still some improvements to be made, such as using a single Kripke model instead of one for each agent. 
 
+
+<!-- why does this not work -->
+
 ## References
 - The Banner image was taken from: <a href="https://coolwallpapers.me/xfsearch/alt/werewolf/">Here</a>
 - BOK unit 1 and BOK unit 2 from the course materials.
