@@ -4,7 +4,7 @@
 1) Install all required libraries (`pip install numpy`, `pip install pygame`, `pip install matplotlib`)
 2) Take a look at the [Game rules](https://www.ultraboardgames.com/the-werewolves-of-millers-hollow/game-rules.php)
 3) Change the amount of players per role in `gameloop.py` (Optional)
-3) Run `python game_loop.py`
+3) Run `python gameloop.py`
 
 # General game explanation
 In this game there are multiple roles. The wolves' goal is to kill all villagers.
