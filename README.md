@@ -25,7 +25,7 @@ The good players are allowed to discuss knowledge, and make a voting decision ba
 * `Reset` or backspace: Restarts the game and initializes new players
 * `^` or arrow-up key: Scrolls the text chat upwards (if possible)
 * `v` or arrow-down key: Scrolls the text chat downwards (if possible)
-* `1-8`: Buttons for displaying the Kripke model of player 1-8
+* `1-8`: Buttons for displaying the Kripke model of player 1-8 (This may take a bit if there are still a lot of relations)
 
 # Code structure
 * `images/` A folder containing player card images
